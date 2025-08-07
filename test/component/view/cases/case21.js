@@ -1,0 +1,21 @@
+export const title       = '21) data as string';
+export const description = `Use the render template with <code>gsvg.data="key: value"</code>`;
+
+export function script() {
+  const gsvg = document.querySelector('grapper-view');
+  gsvg.data = 'value: 3'
+}
+
+export default `<grapper-view style="width: 100px">
+  <svg viewBox="0 0 100 100" id="svg">
+    <g g-for="n of value">
+        <circle   :cx="(n + 1) * 25"
+                  :cy="(n + 1) * 25"
+                    r="25"
+                :fill="['red','green','blue'][n]">
+        </circle>
+    </g>
+    <text x="50" y="12">circles</text>
+  </svg>
+</grapper-view>
+`;

@@ -1,0 +1,1 @@
+/* grapper - 1.0.1 [plugin.tosource] */ (()=>{function t(){return new XMLSerializer().serializeToString(this.el).replaceAll("<!-- ref -->","")}function n(e){e.extendInstance({toSource:t})}var l=n;globalThis.gSVG&&globalThis.gSVG.install(l);customElements.whenDefined("g-rapper").then(e=>{e.install(l)});})();

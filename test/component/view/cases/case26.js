@@ -1,0 +1,16 @@
+export const title       = '26) render with config inline';
+export const description = `Use the render template with <code>config="key: value"</code>`;
+
+export default `<grapper-view config="value: 3" style="width: 100px">
+  <svg viewBox="0 0 100 100" id="svg">
+    <g g-for="n of $.config.value">
+        <circle   :cx="(n + 1) * 25"
+                  :cy="(n + 1) * 25"
+                    r="25"
+                :fill="['red','green','blue'][n]">
+        </circle>
+    </g>
+    <text x="50" y="12">circles</text>
+  </svg>
+</grapper-view>
+`;
