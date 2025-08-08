@@ -9,8 +9,8 @@ import {
   isLikeArray,
   isLikeObject,
   jsStr2obj,
-}                           from "../helpers/types.js";
-import { deepObjectAssign } from "../helpers/objects.js";
+}                           from "../core/helpers/types.js";
+import { deepObjectAssign } from "../core/helpers/objects.js";
 
 class ComponentBase extends Base {
   constructor () {
