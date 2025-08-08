@@ -1,9 +1,8 @@
 import {
   ARRAY, OBJECT, NUMBER,
   isArray, isObject, isNumber, isFunction, isUndefined, isValidNumber, isString
-}                            from '../helpers/types.js';
-import { createFunction }    from '../helpers/function.create.js';
-import { isValidIdentifier } from '../helpers/identifier.js';
+}                            from '../core/helpers/types.js';
+import { createFunction }    from '../core/helpers/function.create.js';
 import animateToPlugin       from './animateto.js';
 
 const directives          = {};
@@ -93,6 +92,21 @@ function replaceWithComment (element) {
   element.remove();
   comment[REPLACE] = element;
   return comment;
+}
+
+/**
+ * Check if a JavaScript identifier is valid or not
+ *
+ * @param identifier
+ * @returns {boolean}
+ */
+function isValidIdentifier (identifier) {
+  try {
+    new Function(`const ${ identifier } = 0`);
+    return true;
+  } catch (e) {
+    return false;
+  }
 }
 
 /**

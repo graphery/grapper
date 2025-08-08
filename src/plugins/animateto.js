@@ -1,4 +1,4 @@
-import { isObject, isString, isFunction, isArray, toCamel } from '../helpers/types.js';
+import { isObject, isString, isFunction, isArray, toCamel } from '../core/helpers/types.js';
 
 const ANIMATE     = 'animate';
 const PATH        = 'path';

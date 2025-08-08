@@ -217,3 +217,5 @@ test-results/
 playwright-report/
 playwright/.cache/
 test-results
+# Added by grapper-core
+/src/core/
