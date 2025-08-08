@@ -13,8 +13,6 @@
   "type": "module",
   "license": "MIT",
   "scripts": {
-    "prepublishOnly": "node ./tools/npm-helpers/clean-pkg.js",
-    "postpublish": "node ./tools/npm-helpers/restore-pkg.js",
     "workbench:view": "g-workbench -l view -i /src/component/view.js -t test/component/view/cases -p 7000",
     "workbench:shapes": "g-workbench -l view.shapes -i /src/component/view.js -t test/component/shapes/cases -p 7015",
     "workbench:gsvg": "g-workbench -l gSVG -i /src/lib/gsvg.script.js -t test/lib/gsvg/cases -p 7002",
@@ -77,7 +75,8 @@
     "build:module:plugin.intersection": "g-packer -l module:plugin.intersection -m src/plugins/intersection.js ./dist/module/plugins/intersection.js",
     "build:module:plugin.object": "g-packer -l module:plugin.object -m src/plugins/object.js ./dist/module/plugins/object.js",
     "build:module:plugin.tosource": "g-packer -l module:plugin.tosource -m src/plugins/tosource.js ./dist/module/plugins/tosource.js",
-    "update:playwright": "npx playwright install"
+    "update:playwright": "npx playwright install",
+    "publish" : "node ./tools/npm-helpers/publish.js"
   },
   "devDependencies": {
     "@playwright/test": "^1.54.2",
