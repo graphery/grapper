@@ -10,3 +10,4 @@ test-results
 tools
 DEVELOP.md
 playwright.config.js
+package.json.backup
