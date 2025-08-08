@@ -1,8 +1,8 @@
 import {
   ARRAY, OBJECT, NUMBER,
   isArray, isObject, isNumber, isFunction, isUndefined, isValidNumber, isString
-}                            from '../helpers/types.js';
-import { createFunction }    from '../helpers/function.create.js';
+}                            from '../core/helpers/types.js';
+import { createFunction }    from '../core/helpers/function.create.js';
 import animateToPlugin       from './animateto.js';
 
 const directives          = {};

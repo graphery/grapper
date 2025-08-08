@@ -4,15 +4,15 @@ import {
 }                         from '../core/base.js';
 import {
   STRING, OBJECT, jsStr2obj, csvStr2obj, isLikeObject, isLikeArray, isFunction, isArray
-}                         from '../helpers/types.js';
+}                         from '../core/helpers/types.js';
 import intersection       from "../core/intersection.js";
+import { debounceMethod } from "../core/helpers/functions.js";
+import { getFunctions }   from "../core/helpers/function.create.js";
+import { operations }     from "../core/helpers/array.operations.js";
+import { clone }          from "../core/helpers/objects.js";
 import gSVG               from '../lib/gsvg.js';
 import render             from '../plugins/template.engine.js';
 import shapes             from '../plugins/shapes.js';
-import { debounceMethod } from "../helpers/functions.js";
-import { getFunctions }   from "../helpers/function.create.js";
-import { operations }     from "../helpers/array.operations.js";
-import { clone }          from "../helpers/objects.js";
 
 const NAME        = 'grapper-view';
 const UPDATE      = 'update';

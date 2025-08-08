@@ -1,7 +1,7 @@
 import {
   EMPTY_STRING, COMA,
   isSymbol, isObject, isString, isUndefined, isFunction, isBoolean, isNull, is
-} from '../helpers/types.js';
+} from '../core/helpers/types.js';
 
 const NAME                    = 'gSVGObject';
 const NS                      = 'http://www.w3.org/2000/svg';

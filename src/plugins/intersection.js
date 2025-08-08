@@ -1,4 +1,4 @@
-import intersection from "../helpers/intersection.js";
+import intersection from "../core/helpers/intersection.js";
 
 function install (setup) {
 
