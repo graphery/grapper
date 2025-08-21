@@ -102,7 +102,8 @@ function animateTo (keyframes, options = {duration : 200}, startCallback = null,
         const altAnimate = gSVG(ANIMATE)
           .attributeName(key)
           .dur(config.duration + 'ms')
-          .fill('freeze');
+          .fill('freeze')
+          .begin('indefinite');
         if (normalizeFrames.length === 1) {
           altAnimate.to(normalizeFrames[0][key]);
         } else {
@@ -127,7 +128,7 @@ function animateTo (keyframes, options = {duration : 200}, startCallback = null,
         }
         alternatives.push(altAnimate);
         altAnimate.attachTo(this);
-        altAnimate.beginElementAt(config.delay || 0);
+        altAnimate.beginElementAt((config.delay || 0) / 1000);
       }
     }
   };
@@ -245,14 +246,12 @@ function animateTo (keyframes, options = {duration : 200}, startCallback = null,
               value2attribute(lastAttributes[attr]));
       }
     }
-    alternatives.forEach(altAnimate => {
-      altAnimate[FINISHED](true);
-      const animates = this._el.querySelectorAll(ANIMATE);
-      const finished = this._el.querySelectorAll(`${ ANIMATE }[${ FINISHED }]`);
-      if (animates.length === finished.length) {
-        animates.forEach(a => a.remove())
-      }
-    });
+    alternatives.forEach(altAnimate => altAnimate[FINISHED](true));
+    const animates = this._el.querySelectorAll(ANIMATE);
+    const finished = this._el.querySelectorAll(`${ ANIMATE }[${ FINISHED }]`);
+    if (animates.length === finished.length) {
+      animates.forEach(a => a.remove());
+    }
     isFunction(endCallback) && endCallback.call(this, animation);
   });
 

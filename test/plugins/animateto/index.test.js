@@ -45,6 +45,8 @@ const results = {
   case16_after : `<svg viewBox="0,0,100,100" width="100" height="100"> <text x="0" y="0"> <tspan x="10" y="80" fill="black">test</tspan> </text> </svg>`,
   case17       : `<svg viewBox="0,0,100,100" width="100" height="100"> <rect x="0" y="0" width="10" height="10" fill="red"></rect> <rect x="90" y="0" width="10" height="10" fill="green"></rect> <rect x="90" y="90" width="10" height="10" fill="blue"></rect> <rect x="0" y="90" width="10" height="10" fill="violet"></rect> </svg>`,
   case17_after : `<svg viewBox="0,0,100,100" width="100" height="100"> <rect x="0" y="0" width="10" height="10" fill="red"></rect> <rect x="90" y="0" width="10" height="10" fill="green"></rect> <rect x="90" y="90" width="10" height="10" fill="blue"></rect> <rect x="0" y="90" width="10" height="10" fill="violet"></rect> </svg>`,
+  case18       : `<svg viewBox="0,0,100,100" width="100" height="100"> <text x="10" y="10" fill="red">test</text> </svg>`,
+  case18_after : `<svg viewBox="0,0,100,100" width="100" height="100"> <text x="70" y="90" fill="black">test</text> </svg>`,
 }
 
 const dir = await opendir(FOLDER);
@@ -71,7 +73,7 @@ for await (const dirent of dir) {
     test('run action', async ({page}) => {
       const run = page.locator('#run');
       await run.click();
-      await wait(1050);
+      await wait(code === 'case18' ? 2000 : 1050);
       const result = page.locator('#result');
       await expect(result).toHaveText(results[code + '_after']);
     });

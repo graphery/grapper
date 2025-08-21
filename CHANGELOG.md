@@ -1,5 +1,9 @@
 # Grapper Change Log
 
+## 1.1.0-beta.3 (2025-08-21)
+
+- Fixes an error when calling `animateTo()` for `x` or `y` with `delay` on a `text` element. 
+
 ## 1.1.0-beta.2 (2025-08-21)
 
 - Update `grapper-core` for alias support.
