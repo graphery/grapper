@@ -14,7 +14,6 @@ import gSVG               from '../lib/gsvg.js';
 import render             from '../plugins/template.engine.js';
 import shapes             from '../plugins/shapes.js';
 
-const NAME        = 'grapper-view';
 const UPDATE      = 'update';
 const SVG         = 'svg';        // Keep in lowercase for Safari
 const METHODS     = 'methods';
@@ -367,7 +366,8 @@ define(View)
       return this.data?.value;
     }
   })
-  .tag(NAME);
+  .tag('grapper-view')
+  .alias('g-composer');
 
 // Extension
 const viewPlugin = (setup) => {
