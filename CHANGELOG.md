@@ -5,6 +5,7 @@
 - Update `grapper-core` for alias support.
 - Added `g-composer` alias for compatibility with `Graphane`.
 - Update dependencies.
+- Fix version number.
 
 ## 1.1.0-beta.1 (2025-08-07)
 
