@@ -1,4 +1,4 @@
-export const title       = '05) animateTo() transform rotate';
+export const title       = '19) animateTo() transform rotate as string variants';
 export const description = 'move the rectangle with transform rotate';
 
 export function script () {
@@ -12,8 +12,10 @@ export function script () {
   run.addEventListener('click', () => {
     rect.animateTo(
       rect.transform() !== 'rotate(315, 50, 50)' ?
-        [{transform : {rotate : [0, 50, 50]}}, {transform : {rotate : [315, 50, 50]}}] :
-        [{transform : {rotate : [315, 50, 50]}}, {transform : {rotate : [0, 50, 50]}}],
+        [ {transform : {rotate: ['0deg', '50px', '50px']}},
+          {transform : 'rotate (315deg, 50, 50)'}] :
+        [ {transform : {rotate : ['315deg', '50px', '50']}},
+          {transform : {rotate : [0, 50, 50]}}],
       1000,
       () => code.innerHTML = 'moving...',
       () => code.innerHTML = sourceFormat(svg.source())

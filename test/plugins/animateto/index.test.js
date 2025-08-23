@@ -47,6 +47,8 @@ const results = {
   case17_after : `<svg viewBox="0,0,100,100" width="100" height="100"> <rect x="0" y="0" width="10" height="10" fill="red"></rect> <rect x="90" y="0" width="10" height="10" fill="green"></rect> <rect x="90" y="90" width="10" height="10" fill="blue"></rect> <rect x="0" y="90" width="10" height="10" fill="violet"></rect> </svg>`,
   case18       : `<svg viewBox="0,0,100,100" width="100" height="100"> <text x="10" y="10" fill="red">test</text> </svg>`,
   case18_after : `<svg viewBox="0,0,100,100" width="100" height="100"> <text x="70" y="90" fill="black">test</text> </svg>`,
+  case19       : `<svg viewBox="0,0,100,100" width="100" height="100"> <rect x="40" y="40" width="20" height="20" fill="black"></rect> </svg>`,
+  case19_after : `<svg viewBox="0,0,100,100" width="100" height="100"> <rect x="40" y="40" width="20" height="20" fill="black" transform="rotate(315, 50, 50)"></rect> </svg>`,
 }
 
 const dir = await opendir(FOLDER);

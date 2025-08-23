@@ -8,9 +8,12 @@ const ROTATE      = 'rotate';
 const TRANSLATE   = 'translate';
 const INHERIT     = 'inherit';
 const FINISHED    = 'finished';
-const TO_DEG      = [ROTATE, 'skewX', 'skewY'];
-const TO_PIXELS   = [TRANSLATE, 'width', 'height', 'x', 'y', 'cx', 'cy', 'r', 'rx', 'ry', 'dx', 'dy'];
-const isException = (tag, key) => ['text', 'tspan'].includes(tag) && ['x', 'y'].includes(key);
+// const TO_DEG      = [ROTATE, 'skewX', 'skewY'];
+// const TO_PIXELS   = [TRANSLATE, 'width', 'height', 'x', 'y', 'cx', 'cy', 'r', 'rx', 'ry', 'dx', 'dy'];
+//const isException = (tag, key) => ['text', 'tspan'].includes(tag) && ['x', 'y'].includes(key);
+const isDegType   = t => /^(rotate|skewX|skewY)$/.test(t);
+const isPixelType = t => /^(translate|width|height|x|y|cx|cy|r|rx|ry|dx|dy)$/.test(t);
+const isException = (tag, key) => tag && /^(text|tspan)$/.test(tag) && /^([xy])$/.test(key);
 
 /**
  * The reduced-motion flag
@@ -141,12 +144,14 @@ function animateTo (keyframes, options = {duration : 200}, startCallback = null,
   const transform = (property) => {
     if (isString(property)) {
       property = JSON.parse('{' +
-                            property
-                              .replace(/\s*\(\s*/g, ':[')
-                              .replace(/\s*\)\s*/g, '],')
-                              .split(/\s*,\s*|\s.*/).join(',')
-                              .replace(/(\w+):/g, '"$1":')
-                              .replace(/,$/, '')
+                            property.trim().replace(
+                              /^(\w+)\s*\(\s*([^)]+)\s*\)\s*$/,
+                              (_, key, args) => `"${ key }": [${
+                                args.trim()
+                                    .split(/\s*,\s*|\s+/)
+                                    .map(p => /^[-+]?\d+(?:\.\d+)?$/.test(p) ? p : `"${ p }"`)
+                                    .join(', ') }]`
+                            )
                             + '}');
     }
     let result = '';
@@ -181,9 +186,10 @@ function animateTo (keyframes, options = {duration : 200}, startCallback = null,
    * @returns {string}
    */
   const valueUnit = (value, type) =>
-    TO_DEG.includes(type) ? value + 'deg' :
-      TO_PIXELS.includes(type) ? value + 'px' :
-        value;
+    isString(value) && /deg|px/.test(value) ? value :
+      isDegType(type) ? value + 'deg' :
+        isPixelType(type) ? value + 'px' :
+          value;
 
   /**
    * Convert to valida attribute value
