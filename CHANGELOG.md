@@ -1,10 +1,10 @@
 # Grapper Change Log
 
-## 1.1.0-beta.4
+## 1.1.0-beta.4 (2025-08-23)
 
 - Fixed a bug when calling `animateTo()` with values that include `deg` or `px` units.
 
-## 1.1.0-beta.3 (2025-08-21)
+## 1.1.0-beta.3 (2025-08-22)
 
 - Fixes an error when calling `animateTo()` for `x` or `y` with `delay` on a `text` element. 
 
