@@ -1,86 +1,101 @@
 # ![Grapper](./assets/img/grapper.png)
 
-See the complete documentation at [grapper.dev](https://grapper.dev/) and many editable examples
-at [playground.grapper.dev](https://playground.grapper.dev/).
+**Grapper** is a free and open-source **web component for data visualization**, designed as a
+**low-level microframework** to create **custom, dynamic, and interactive visualizations** with 
+**SVG + directives**. It offers **flexibility in design**, enabling unique and aesthetic 
+visualizations far beyond the typical monotonous charts.
 
-Grapper is a free and open-source **data visualization low-level microframework** designed to
-facilitate the creation of custom, dynamic and interactive visualizations. Grapper offers 
-**flexibility in designs**, allowing creators to make unique aesthetic visualizations that are far 
-from becoming monotonous charts seen everywhere.
+## ✨ Features
 
-Grapper is composed of:
+- ⚡ **Microframework** — lightweight, no build step required  
+- 📊 **Data-driven** — declarative binding between data and SVG  
+- 🖼️ **Native** — built on top of `<svg>` with powerful directives (`g-for`, `g-bind`, `g-if`, `g-on`, …)  
+- 🔄 **Reactive** — smooth and efficient updates when data changes  
+- 🎨 **Configurable** — use JSON/JSON5 for palettes, margins, scales, etc.  
+- 🛠️ **Extensible** — methods for interactivity, data transformation, and plugins  
 
-- **A web component** for combining:
-  - **SVG** markup template with directives.
-  - **Data** in JSON or CSV formats.
-  - **Methods**, optionally, to handle interactivity and data transformation.
+## 📖 Documentation & Playground
 
-This is a basic example:
+- Full documentation: [grapper.dev](https://grapper.dev/)  
+- Interactive Playground: [playground.grapper.dev](https://playground.grapper.dev/)  
+- GitHub: [graphery/grapper](https://github.com/graphery/grapper)  
+- NPM: [grapper](https://www.npmjs.com/package/grapper)
 
-![example](assets%2Fimg%2Fexample.png)
-  
+## 🚀 Installation
+
+Use via **CDN**:
+
+```html
+<script src="https://cdn.jsdelivr.net/npm/grapper/dist/view.js"></script>
+````
+
+Or install via **npm**:
+
+```bash
+npm install grapper
+```
+
+## Quick Example
+
+This example demonstrates a very basic bar chart using `grapper-view`:
+
+![example](./assets/img/example.png)
+
 ```html
 <grapper-view id="example-starter">
   <template>
     <svg viewBox="0 0 200 100" width="200px" height="100px">
       <g stroke-width="12" stroke-linecap="round">
-        <defs g-for="(record, index) of data">
-          <line x1="22"
-                g-bind:x2="record.value"
-                g-bind:y1="index * 20 + 30"
-                g-bind:y2="index * 20 + 30"
-                g-bind:stroke="record.color"/>
-        </defs>
+        <line g-for="(record, index) of data"
+              x1="22"
+              :x2="record.value"
+              :y1="index * 20 + 30"
+              :y2="index * 20 + 30"
+              :stroke="record.color"/>
       </g>
     </svg>
   </template>
-  <script type="data">[ 
-    { color: "#D80000", value: 130 }, 
-    { color: "#00D800", value: 170 }, 
-    { color: "#0000D8", value: 100 }, 
-  ]
+  <script type="data">
+    [
+      { "color": "#D80000", "value": 130 },
+      { "color": "#00D800", "value": 170 },
+      { "color": "#0000D8", "value": 100 }
+    ]
   </script>
 </grapper-view>
 ```
 
-Grapper is based on SVG and directives, defining a **declarative way** to build **data-driven**
-graphics. This approach allows centering the effort on the design in a very natural form. Designers
-and developers achieve technical efficiency and gain the means to communicate their data story to
-their audience effectively.
+Grapper is based on SVG and directives, providing a **declarative way** to build **data-driven
+graphics**. This approach allows designers and developers to focus on **visual storytelling** with
+**smooth rendering** and **high runtime performance** — all with a **tiny footprint** and **no
+pre-compilation**.
 
-In addition, Grapper has a **smooth rendering** and **optimal performance** with a **tiny 
-overhead**. It is not just a tool but a complete system that includes specially designed mechanisms 
-to update the visualization efficiently when data are changed. Grapper maintains high runtime 
-performance without the need for pre-compilation processes.
+## Authors & Acknowledgment
 
-## Load
-
-To start, you must load Grapper on your HTML page. This is done by adding a `script` tag pointing
-to the Grapper file. 
-
-You can use the CDN directly:
-
-```html
-<script src="https://cdn.graphery.online/grapper/1.0.0/view.js"></script>
-```
-
-You can install locally the Grapper package with:
-
-```bash
-npm i grapper
-```
-
-## Authors and acknowledgment
-
-The initial version has been created by Graphery. Thanks to collaborators and friends for their 
-support and help. If you have any questions or need support, feel free to reach out.
+Grapper has been created by the [**Graphery**](https://www.graphery.com/) team.
+Thanks to contributors and friends for their support and feedback. 🙏
 
 ## Contributing
 
-We appreciate any contributions to the project! Whether it's reporting bugs, suggesting new
-features, or submitting pull requests, your input is valuable.
+We welcome contributions!
+Feel free to **report issues**, **suggest features**, or submit **pull requests**.
 
 ## License
 
-Grapper is licensed under the MIT License. See the [LICENSE](LICENSE.md) file for more details.
+Grapper is licensed under the **MIT License**.
+See the [LICENSE](LICENSE.md) file for details.
 
+---
+
+## From Graphane 1.0.x to Grapper 1.1.x
+
+Grapper is the **next version of Graphane**.  
+The project was renamed to avoid conflicts with other products and improve discoverability.
+
+The main changes are:
+
+- `<g-composer>` → `<grapper-view>`
+- `$$.` helpers → unified under `$.` (the old namespace still works but is deprecated)
+
+Existing Graphane projects will continue to run, but **new projects should use Grapper**.  
+Migration is incremental — you can update components one by one without breaking anything.
