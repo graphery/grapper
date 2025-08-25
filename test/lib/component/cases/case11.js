@@ -7,10 +7,10 @@ export function script () {
     `<grapper-view value="3">
         <template>
           <svg viewBox="0 0 500 500" fill="none" stroke="black" stroke-width="10">
-            <circle cx="250" cy="250" r="200" :fill="$$.dynamic($.config.figures[data.value || 0].fill)"></circle>
+            <circle cx="250" cy="250" r="200" :fill="$.dynamic($.config.figures[data.value || 0].fill)"></circle>
             <circle cx="310" cy="200" r="10" fill="black"></circle>
             <circle cx="180" cy="200" r="10" fill="black"></circle>
-            <path  :d="$$.dynamic($.config.figures[data.value || 0].d)"/>
+            <path  :d="$.dynamic($.config.figures[data.value || 0].d)"/>
           </svg>
         </template>
         <script type="config">

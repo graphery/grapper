@@ -1,4 +1,4 @@
-export const title       = '47) g-content with $$.fromURL()';
+export const title       = '47) g-content with $.fromURL()';
 export const description = 'load external SVGs and embed them';
 
 export default `
@@ -6,7 +6,7 @@ export default `
    <svg viewBox="0 0 100 100">
      <defs>
        <g g-for="r of data">
-         <g g-content="$$.fromURL(r.image)" @load="load(this, r)" ></g>
+         <g g-content="$.fromURL(r.image)" @load="load(this, r)" ></g>
        </g>
      </defs>
      <g g-for="col of 10">

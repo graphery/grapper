@@ -1,4 +1,4 @@
-export const title = '45) g-content with $$.fromURL()';
+export const title = '45) g-content with $.fromURL()';
 export const description = `load an external SVG`;
 
 export async function script () {
@@ -10,6 +10,6 @@ export async function script () {
 }
 
 export default `<svg viewBox="0 0 100 100" id="svg" style="width: 100px; height: 100px">
-  <g g-content="$$.fromURL('/test/plugins/template.engine/assets/image.svg')"></g>
+  <g g-content="$.fromURL('/test/plugins/template.engine/assets/image.svg')"></g>
 </svg>
 <pre id="result"></pre>`;

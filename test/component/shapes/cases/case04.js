@@ -18,7 +18,7 @@ export default `<grapper-view id="show">
 <svg viewBox="0 0 200 200" width="200">
   <circle fill="red" cx="75" cy="100" r="50"></circle>
   <path fill="none" stroke-width="1" stroke="black" id="path" 
-        :d="$$.arc(75, 100, 60, -180, 240)"></path>
+        :d="$.arc(75, 100, 60, -180, 240)"></path>
   <text>
     <textPath href="#path" method="align">testing the path</textPath>
   </text>
