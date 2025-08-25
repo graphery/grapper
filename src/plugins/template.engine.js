@@ -1,9 +1,9 @@
 import {
   ARRAY, OBJECT, NUMBER,
   isArray, isObject, isNumber, isFunction, isUndefined, isValidNumber, isString
-}                            from '../core/helpers/types.js';
-import { createFunction }    from '../core/helpers/function.create.js';
-import animateToPlugin       from './animateto.js';
+}                         from '../core/helpers/types.js';
+import { createFunction } from '../core/helpers/function.create.js';
+import animateToPlugin    from './animateto.js';
 
 const directives          = {};
 const INIT                = Symbol();
@@ -144,9 +144,11 @@ defineDirective({
           console.warn(`Failed to load URL: ${ src } (${ res.status })`);
         },
         element        : gObject,
-        currentContent : gObject.content
+        currentContent : gObject.content,
+        ...(data.$ || {})
       }
     };
+    context.$ = context.$$;
     const result  = evalExpr(expr, context);
     const event   = new CustomEvent('load', {bubbles : true, detail : gObject});
     const norm    = c => isUndefined(c) ? '' : c;
@@ -224,8 +226,10 @@ defineDirective({
           {duration, delay}
         );
         return DYNAMIC;
-      }
+      },
+      ...(data.$ || {})
     });
+    context.$ = context.$$;
 
     let value = evalExpr(expr, context);
     if (isUndefined(value)) {
