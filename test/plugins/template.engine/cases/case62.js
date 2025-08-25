@@ -1,4 +1,4 @@
-export const title = '46) g-content with $.fromURL() and $.currentContent()';
+export const title = '62) g-content with $$.fromURL() and $$.currentContent() (compatibility with Graphane 1.0.x)';
 export const description = `load an external SVG with $.svg()`;
 
 export async function script () {
@@ -10,7 +10,7 @@ export async function script () {
 }
 
 export default `<svg viewBox="0 0 100 100" id="svg" style="width: 100px; height: 100px">
-  <g g-content="$.fromURL($.currentContent().trim())">
+  <g g-content="$$.fromURL($$.currentContent().trim())">
     /test/plugins/template.engine/assets/image.svg
   </g>
 </svg>

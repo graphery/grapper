@@ -22,7 +22,7 @@ export default `<grapper-view id="show">
           font-size="35" text-anchor="middle" dominant-baseline="middle" 
           g-content="r"></text>
     <path fill="none" stroke-width="3" stroke="black" id="path"
-          :d="$$.barArc(i % 5 * 200 + 100, Math.floor(i / 5) * 200 + 100, 75, 10, r[0], r[1])"/>
+          :d="$.barArc(i % 5 * 200 + 100, Math.floor(i / 5) * 200 + 100, 75, 10, r[0], r[1])"/>
   </g>
 </svg>
 </template>

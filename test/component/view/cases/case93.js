@@ -1,5 +1,5 @@
-export const title       = '93) g-bind class and style with function and $$';
-export const description = 'evaluate g-bind attributes class and style with a function and $$ parameter';
+export const title       = '93) g-bind class and style with function and $';
+export const description = 'evaluate g-bind attributes class and style with a function and $ parameter';
 
 export default `
 <grapper-view>
@@ -15,9 +15,9 @@ export default `
       </style>
       <circle cx="50" cy="50" r="40"
         class="test test2"
-        :class="classes($$)"
+        :class="classes($)"
         style="stroke: blue; stroke-width:2"
-        :style="styles($$)"/>
+        :style="styles($)"/>
     </svg>
   </template>
   <script type="methods">

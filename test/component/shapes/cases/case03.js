@@ -16,10 +16,10 @@ export function script () {
 export default `<grapper-view id="show">
 <template>
 <svg viewBox="0 0 200 500" width="200" height="200">
-  <path fill="none" stroke-width="10" stroke="black" :d="$$.arc(100, 250, 100, 50, 0)"/>
-  <path fill="none" stroke-width="10" stroke="black" :d="$$.arc(100, 250, 100, 60, 90)"/>
-  <path fill="none" stroke-width="10" stroke="black" :d="$$.arc(100, 250, 100, 70, 180)"/>
-  <path fill="none" stroke-width="10" stroke="black" :d="$$.arc(100, 250, 100, 80, 270)"/>
+  <path fill="none" stroke-width="10" stroke="black" :d="$.arc(100, 250, 100, 50, 0)"/>
+  <path fill="none" stroke-width="10" stroke="black" :d="$.arc(100, 250, 100, 60, 90)"/>
+  <path fill="none" stroke-width="10" stroke="black" :d="$.arc(100, 250, 100, 70, 180)"/>
+  <path fill="none" stroke-width="10" stroke="black" :d="$.arc(100, 250, 100, 80, 270)"/>
 </svg>
 </template>
 </grapper-view>
