@@ -34,10 +34,18 @@ const isNotSize   = (svg) => {
  */
 const toContext = (ctx) => {
   return {
-    svg             : ctx.svg,
-    data            : ctx.data,
-    config          : ctx.config,
-    methods         : ctx.methods,
+    get svg () {
+      return ctx.svg
+    },
+    get data () {
+      return ctx.data
+    },
+    get config () {
+      return ctx.config
+    },
+    get methods () {
+      return ctx.methods
+    },
     polar2cartesian : ctx.polar2cartesian,
     degrees2radians : ctx.degrees2radians,
     grapperView     : ctx,
@@ -318,7 +326,7 @@ export default class View extends Base {
       const data        = ctx.methods?.data ?
         ctx.methods.data(operations(clone(ctx.data))) :
         operations(clone(ctx.data));
-      const renderCtx = {
+      const renderCtx   = {
         ...ctx.methods,
         ...(isArray(data) ? {} : data),
         data,

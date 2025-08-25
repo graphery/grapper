@@ -1,5 +1,9 @@
 # Grapper Change Log
 
+## 1.1.0-beta.6 (2025-08-25)
+
+- Fixes an error when trying to access to `$.data` or `$.config` from a method.
+
 ## 1.1.0-beta.5 (2025-08-25)
 
 - All directive helpers are collected in `$`, avoiding the need to know whether a given function is 
@@ -8,7 +12,7 @@
 
 ## 1.1.0-beta.4 (2025-08-23)
 
-- Fixed a bug when calling `animateTo()` with values that include `deg` or `px` units.
+- Fixes a bug when calling `animateTo()` with values that include `deg` or `px` units.
 
 ## 1.1.0-beta.3 (2025-08-22)
 
