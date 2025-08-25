@@ -1,5 +1,11 @@
 # Grapper Change Log
 
+## 1.1.0-beta.5 (2025-08-25)
+
+- All directive helpers are collected in `$`, avoiding the need to know whether a given function is 
+  in `$` as a general helper or in `$$` as a specific directive helper.
+- `$$` is supported by compatibility with previous versions.
+
 ## 1.1.0-beta.4 (2025-08-23)
 
 - Fixed a bug when calling `animateTo()` with values that include `deg` or `px` units.
