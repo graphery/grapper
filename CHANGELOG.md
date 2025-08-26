@@ -1,5 +1,11 @@
 # Grapper Change Log
 
+## 1.1.0-beta.8 (2025-08-26)
+
+- Update the `grapper-core` version to 1.1.0-beta.8.
+- Adds support for `intersection.enter` and `intersection.exit` events directly from the template 
+  when the `intersection-ration` property is set to a value other than 0 in `grapper-view`.
+
 ## 1.1.0-beta.7 (2025-08-25)
 
 - Fixes an error with the NPM package.
