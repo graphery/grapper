@@ -67,7 +67,7 @@ for await (const dirent of dir) {
         await expect(show).toHaveScreenshot()
       });
     }
-    if (['case35'].includes(code)) {
+    if (['case35', 'case96'].includes(code)) {
       test('compare image after run action', async ({page}) => {
         const run = page.locator('#check');
         await run.click();
@@ -104,6 +104,15 @@ for await (const dirent of dir) {
           await wait(500);
         }
         await expect(result).toHaveText(errors[code]);
+      });
+    }
+
+    if ('case96' === code) {
+      test('events', async ({page}) => {
+        const result = page.locator('#result');
+        await expect(result).toHaveText(/init/);
+        await expect(result).toHaveText(/render/);
+        await expect(result).toHaveText(/intersection.enter/);
       });
     }
 
