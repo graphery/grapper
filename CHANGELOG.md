@@ -1,5 +1,12 @@
 # Grapper Change Log
 
+## 1.1.0-beta.9 (2025-08-27)
+
+- Update the `grapper-core` version to 1.1.0-beta.9.
+- Definitive removal of support for `$.addEventListener`, instead `g-on` or
+  `$.grapperView.addEventListener()` should be used.
+- Full reloading of the component should be done with `$.grapperView.load()` instead of `$.load()`.
+
 ## 1.1.0-beta.8 (2025-08-26)
 
 - Update the `grapper-core` version to 1.1.0-beta.8.
