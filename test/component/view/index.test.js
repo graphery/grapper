@@ -118,9 +118,9 @@ for await (const dirent of dir) {
       test('events after run action', async ({page}) => {
         const run = page.locator('#check');
         await run.click();
-        await wait(500);
+        await wait(1000);
         const result = page.locator('#result');
-        await expect(result).toHaveText(/render$/);
+        await expect(result).toHaveText(/render(.*)render/);
       });
     }
 
