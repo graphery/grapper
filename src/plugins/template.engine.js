@@ -150,7 +150,7 @@ defineDirective({
     };
     context.$ = context.$$;
     const result  = evalExpr(expr, context);
-    const event   = new CustomEvent('load', {bubbles : false, detail : gObject});
+    const event   = new CustomEvent('load', {bubbles : true, detail : gObject});
     const norm    = c => isUndefined(c) ? '' : c;
     if (isObject(result) && result.then) {
       result.then(result => {
