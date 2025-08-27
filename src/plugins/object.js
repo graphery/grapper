@@ -35,8 +35,8 @@ function install (setup) {
   if (setup.extendTemplate) {
     setup.extendTemplate.defineDirective({
       name : 'g-object',
-      exec (gObject, {expr, evalExpr, data}) {
-        gObject.fromObject(evalExpr(expr, data));
+      exec (gObject, {expr, evalExpr, ctx}) {
+        gObject.fromObject(evalExpr(expr, ctx));
       }
     });
   }

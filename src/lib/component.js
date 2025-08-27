@@ -81,7 +81,6 @@ class ComponentBase extends Base {
   }
 
   set config (config) {
-    debugger
     if (this.#gview?.loaded) {
       deepObjectAssign(this.#gview.config, config);
     } else {

@@ -132,9 +132,9 @@ function restoreFromComment (comment) {
  */
 defineDirective({
   name : 'g-content',
-  exec (gObject, {expr, data, evalExpr}) {
+  exec (gObject, {expr, ctx, evalExpr}) {
     const context = {
-      ...data,
+      ...ctx,
       $$ : {
         fromURL        : async (src) => {
           const res = await fetch(src);
@@ -145,7 +145,7 @@ defineDirective({
         },
         element        : gObject,
         currentContent : gObject.content,
-        ...(data.$ || {})
+        ...(ctx.$ || {})
       }
     };
     context.$ = context.$$;
@@ -172,8 +172,8 @@ defineDirective({
  */
 defineDirective({
   name : 'g-if',
-  exec (gObject, {expr, data, evalExpr}) {
-    if (!evalExpr(expr, data)) {
+  exec (gObject, {expr, ctx, evalExpr}) {
+    if (!evalExpr(expr, ctx)) {
       if (gObject[CLONES]) {
         gObject[CLONES].forEach(x => x.remove());
         delete gObject[CLONES];
@@ -194,11 +194,11 @@ defineDirective({
   name  : 'g-bind',
   alias : ':',
   arg   : true,
-  exec (gObject, {expr, arg, data, evalExpr}) {
+  exec (gObject, {expr, arg, ctx, evalExpr}) {
     arg           = normalizeAttribute(arg);
     const el      = gObject._el;
     const context = {
-      ...data,
+      ...ctx,
       $$ : ['d', 'transform'].includes(arg) ? gObject['$' + arg] : {}
     };
     Object.assign(context.$$, {
@@ -227,7 +227,7 @@ defineDirective({
         );
         return DYNAMIC;
       },
-      ...(data.$ || {})
+      ...(ctx.$ || {})
     });
     context.$ = context.$$;
 
@@ -281,7 +281,7 @@ defineDirective({
   name  : 'g-on',
   alias : '@',
   arg   : true,
-  exec (gObject, {expr, arg : event, data, evalExpr, error, code}) {
+  exec (gObject, {expr, arg : event, ctx, evalExpr, error, code}) {
     gObject[EVENTS] = gObject[EVENTS] || {};
     const manager   = gObject[EVENTS][event] = gObject[EVENTS][event] || new Map();
     if (manager.has(expr)) {
@@ -289,7 +289,7 @@ defineDirective({
     }
     const handler = function (evt) {
       try {
-        let fn = evalExpr(expr, data, gObject);
+        let fn = evalExpr(expr, ctx, gObject);
         if (isFunction(fn)) {
           fn.call(gObject, evt);
         }
@@ -329,13 +329,13 @@ defineDirective({
 defineDirective({
   name : 'g-for',
   tmpl : true,
-  exec (def, {expr, data, error}) {
+  exec (def, {expr, ctx, error}) {
     def[CLONES] = def[CLONES] || [];
     const ref   = def.gSVG(replaceWithComment(def));
     let n       = 0;
     evalForExpr(
       expr,
-      data,
+      ctx,
       (subData) => {
         if (def[CLONES][n]) {
           process(def[CLONES][n], subData, error, false);
@@ -453,19 +453,19 @@ function toIterable (v, kind) {
 }
 
 /**
- * evalExpr - evaluate an expression with a data context
+ * evalExpr - evaluate an expression with a context
  * @param {string} code
- * @param {object} data
+ * @param {object} ctx
  * @param {object} [context=null]
  * @returns {*}
  */
-function evalExpr (code, data, context = null) {
-  const keys       = Object.keys(data).filter(isValidIdentifier);
+function evalExpr (code, ctx, context = null) {
+  const keys       = Object.keys(ctx).filter(isValidIdentifier);
   const fn         = createFunction(
     keys,
     `return ( ${ code } ); `
   );
-  const evalResult = fn.apply(context, keys.map(key => data[key]));
+  const evalResult = fn.apply(context, keys.map(key => ctx[key]));
   if (!isValidNumber(evalResult)) {
     throw exprError(code, ERROR_NAN);
   }
@@ -473,15 +473,15 @@ function evalExpr (code, data, context = null) {
 }
 
 /**
- * evalForExpression - evaluates an expression ` in ` with a data context and calls for each
+ * evalForExpression - evaluates an expression ` in ` with a context and calls for each
  * occurrence to the callback
  * @param {string} code
- * @param {object} data
+ * @param {object} ctx
  * @param {function} each
  * @param {function} final
  * @returns {*}
  */
-function evalForExpr (code, data, each, final) {
+function evalForExpr (code, ctx, each, final) {
   const iteratorName = '__$$i';
   const callbackName = '__$$c';
   const finalName    = '__$$f';
@@ -493,7 +493,7 @@ function evalForExpr (code, data, each, final) {
   kind                      = kind.trim();
   left                      = left.trim();
   right                     = right.trim();
-  const value               = evalExpr(right, data) || [];
+  const value               = evalExpr(right, ctx) || [];
   const {iterator, type}    = toIterable(value, kind);
   if (type === TYPE_ERROR) {
     throw exprError(code, ERROR_INVALID_G_FOR);
@@ -503,17 +503,17 @@ function evalForExpr (code, data, each, final) {
   }
   const variables    = getVariables(left);
   const args         = !left.startsWith('(') ? `(${ left })` : left;
-  const dataKeys     = Object.keys(data).filter(isValidIdentifier);
+  const ctxKeys      = Object.keys(ctx).filter(isValidIdentifier);
   const codeFunction = `
     ${ iteratorName }.forEach(${ args } => {
-      ${ callbackName }({${ dataKeys }${ dataKeys.length ?
+      ${ callbackName }({${ ctxKeys }${ ctxKeys.length ?
     ',' :
     '' }${ variables.join(',') }});
     });
     ${ finalName }(${ iteratorName });
   `;
-  const fn           = createFunction([...dataKeys, iteratorName, callbackName, finalName], codeFunction);
-  return fn(...dataKeys.map(key => data[key]), iterator, each, final);
+  const fn           = createFunction([...ctxKeys, iteratorName, callbackName, finalName], codeFunction);
+  return fn(...ctxKeys.map(key => ctx[key]), iterator, each, final);
 }
 
 
@@ -522,12 +522,12 @@ function evalForExpr (code, data, each, final) {
  * and executing the corresponding directive functions.
  *
  * @param {HTMLElement} el - The element to be processed
- * @param {object} data - The data to be used by the directive functions
+ * @param {object} ctx - The context to be used by the directive functions
  * @param {function} error - The error handler function
  * @param {boolean} [checkCloned=true] - Flag indicating whether to check if the element is cloned
  * @returns {void}
  */
-function process (el, data, error, checkCloned = true) {
+function process (el, ctx, error, checkCloned = true) {
   if (checkCloned && el[CLONED]) {
     return
   }
@@ -546,7 +546,7 @@ function process (el, data, error, checkCloned = true) {
   for (let directive of el[DIRECTIVES]) {
     tmpl = directive.tmpl || tmpl;
     try {
-      if (directive.exec(el, {...directive, data, evalExpr, error, code})) {
+      if (directive.exec(el, {...directive, ctx, evalExpr, error, code})) {
         return;
       }
     } catch (err) {
@@ -569,9 +569,9 @@ function process (el, data, error, checkCloned = true) {
   if (!tmpl) {
     for (const child of el.childNodes()) {
       if (child.el[REPLACE]) {
-        process(restoreFromComment(child.el), data, error);
+        process(restoreFromComment(child.el), ctx, error);
       } else if (child.el?.nodeType === 1) {
-        process(child, data, error);
+        process(child, ctx, error);
       }
     }
   }
@@ -580,7 +580,7 @@ function process (el, data, error, checkCloned = true) {
 
 /**
  * Renders the content in the given context.
- * @param {Object} context - The context object containing the data for rendering.
+ * @param {Object} context - The context object containing the context for rendering.
  * @param {Function} [error=throwError()] - The error handling function to be called in case of errors.
  * @return {undefined}
  */

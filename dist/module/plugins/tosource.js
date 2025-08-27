@@ -1,1 +1,1 @@
-/* grapper - 1.1.0-beta.8 [module:plugin.tosource] */ function t(){return new XMLSerializer().serializeToString(this.el).replaceAll("<!-- ref -->","")}function n(e){e.extendInstance({toSource:t})}var l=n;export{l as default};
+/* grapper - 1.1.0-beta.9 [module:plugin.tosource] */ function t(){return new XMLSerializer().serializeToString(this.el).replaceAll("<!-- ref -->","")}function n(e){e.extendInstance({toSource:t})}var l=n;export{l as default};

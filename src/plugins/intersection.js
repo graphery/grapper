@@ -11,8 +11,8 @@ function install (setup) {
   if (setup.extendTemplate) {
     setup.extendTemplate.defineDirective({
       name : 'g-intersection',
-      exec (gObject, {expr, evalExpr, data}) {
-        const ratio = evalExpr(expr, data);
+      exec (gObject, {expr, evalExpr, ctx}) {
+        const ratio = evalExpr(expr, ctx);
         gObject.intersection(ratio);
       }
     });
