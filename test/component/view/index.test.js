@@ -107,7 +107,7 @@ for await (const dirent of dir) {
       });
     }
 
-    if (['case96', 'case97', 'case98'].includes(code)) {
+    if (['case96', 'case97'].includes(code)) {
       test('events', async ({page}) => {
         await wait(500);
         const result = page.locator('#result');

@@ -35,24 +35,6 @@ const throwError = (message, scope, code) => {
 }
 
 /**
- * Returns to a property of an object list by priority.
- * @param objs
- * @returns {{}|undefined|*}
- */
-const prioritizedAccess = (...objs) => {
-  return new Proxy({}, {
-    get (target, prop) {
-      for (const obj of objs) {
-        if (obj && !isUndefined(obj[prop])) {
-          return obj[prop];
-        }
-      }
-      return undefined;
-    }
-  })
-};
-
-/**
  * Normalizes an attribute name by converting it to a predefined case format, if applicable.
  *
  * This function takes an attribute name string, and checks it against a predefined list of
@@ -162,10 +144,11 @@ defineDirective({
           console.warn(`Failed to load URL: ${ src } (${ res.status })`);
         },
         element        : gObject,
-        currentContent : gObject.content
+        currentContent : gObject.content,
+        ...(ctx.$ || {})
       }
     };
-    context.$     = prioritizedAccess(context.$$, ctx.$);
+    context.$ = context.$$;
     const result  = evalExpr(expr, context);
     const event   = new CustomEvent('load', {bubbles : false, detail : gObject});
     const norm    = c => isUndefined(c) ? '' : c;
@@ -243,9 +226,10 @@ defineDirective({
           {duration, delay}
         );
         return DYNAMIC;
-      }
+      },
+      ...(ctx.$ || {})
     });
-    context.$ = prioritizedAccess(context.$$, ctx.$);
+    context.$ = context.$$;
 
     let value = evalExpr(expr, context);
     if (isUndefined(value)) {
