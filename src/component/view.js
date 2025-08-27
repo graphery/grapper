@@ -28,31 +28,6 @@ const isNotSize   = (svg) => {
 };
 
 /**
- * Returns the context of the given component.
- * @param ctx
- * @returns {{svg, config, methods, polar2cartesian, degrees2radians}}
- */
-const toContext = (ctx) => {
-  return {
-    get svg () {
-      return ctx.svg
-    },
-    get data () {
-      return ctx.data
-    },
-    get config () {
-      return ctx.config
-    },
-    get methods () {
-      return ctx.methods
-    },
-    polar2cartesian : ctx.polar2cartesian,
-    degrees2radians : ctx.degrees2radians,
-    grapperView     : ctx,
-  }
-};
-
-/**
  * Class representing a Grapper View.
  * @fires 'load' - This event fires when the component load the external resources.
  * @fires 'update' - This event fires when the component update the content.
@@ -196,9 +171,7 @@ export default class View extends Base {
    * @return {Promise<void>} A Promise that resolves once the methods are loaded.
    */
   #loadMethods () {
-    return this.#loadScript(METHODS, (content) => getFunctions({
-      $ : toContext(this),
-    }, content));
+    return this.#loadScript(METHODS, (content) => getFunctions({$ : this}, content));
   }
 
   /**
@@ -302,7 +275,8 @@ export default class View extends Base {
     ]);
 
     this.#loaded = true;
-    this[FIRE_EVENT]('load');
+    this[FIRE_EVENT]('load');  // Backward compatibility
+    this[FIRE_EVENT]('init');
 
     // Call to update
     return this.update(true);
@@ -330,7 +304,7 @@ export default class View extends Base {
         ...ctx.methods,
         ...(isArray(data) ? {} : data),
         data,
-        $ : toContext(this),
+        $ : this,
       };
       await this.#svg.render(renderCtx, this.#createErrorHandler(this.#errorsRender));
       if (isNotSize(this.#svg)) {
