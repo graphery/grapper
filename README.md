@@ -16,8 +16,8 @@ visualizations far beyond the typical monotonous charts.
 
 ## 📖 Documentation & Playground
 
-- Full documentation: [grapper.dev](https://grapper.dev/)  
-- Interactive Playground: [playground.grapper.dev](https://playground.grapper.dev/)  
+- Full documentation: [grapper.io](https://grapper.io/)  
+- Interactive Playground: [playground.grapper.io](https://playground.grapper.io/)  
 - GitHub: [graphery/grapper](https://github.com/graphery/grapper)  
 - NPM: [grapper](https://www.npmjs.com/package/grapper)
 

@@ -94,11 +94,11 @@ To set up the development environment:
 
 We encourage you to contribute new examples or demos for Grapper that showcase how the library can
 be used. These examples will be featured in
-the [Grapper Playground](https://playground.grapper.dev).
+the [Grapper Playground](https://playground.grapper.io).
 
 ### How to Contribute Examples
 
-1. Go to the [Grapper Playground](https://playground.grapper.dev).
+1. Go to the [Grapper Playground](https://playground.grapper.io).
 2. Create or modify an example to demonstrate features of Grapper.
 3. Test your example thoroughly in the playground environment.
 4. Submit your example through the playground interface.
