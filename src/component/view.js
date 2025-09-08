@@ -155,6 +155,11 @@ export default class View extends Base {
     const ctx             = this [CONTEXT];
     this.#svg             = null;
     ctx.content.innerHTML = '';
+    const template = this.querySelector('template')?.content || this.querySelector(SVG);
+    if (!ctx.svgSrc) {
+      debugger
+      ctx.svgSrc = template?.getAttribute('src');
+    }
     if (ctx.svgSrc) {
       try {
         ctx.content.innerHTML = await this.#fetch(ctx.svgSrc);
@@ -162,7 +167,6 @@ export default class View extends Base {
         this.#error(err.message, SVG, ctx.svgSrc, this.#errorsLoading);
       }
     } else {
-      const template = this.querySelector('template')?.content || this.querySelector(SVG);
       if (template) {
         ctx.content.append(template.cloneNode(true));
       }

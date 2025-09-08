@@ -3,6 +3,7 @@
 ## next
 
 - SECURITY: fix a potential XSS vulnerability with external data and config.
+- Add support to `src` in `template` for loading external SVG with directives.
 
 ## 1.1.0-beta.9 (2025-08-27)
 
