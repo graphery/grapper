@@ -1,5 +1,9 @@
 # Grapper Change Log
 
+## next
+
+- SECURITY: fix a potential XSS vulnerability with external data and config.
+
 ## 1.1.0-beta.9 (2025-08-27)
 
 - Update the `grapper-core` version to 1.1.0-beta.9.

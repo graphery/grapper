@@ -184,7 +184,7 @@ export default class View extends Base {
       el?.textContent;
     if (content) {
       try {
-        ctx[kind] = reviver(content);
+        ctx[kind] = reviver(content, !ctx[key]);
       } catch (err) {
         this.#error(err.message, kind, content, this.#errorsLoading);
       }
@@ -207,7 +207,7 @@ export default class View extends Base {
    * @return {Promise<void>} A promise that resolves after loading the configuration.
    */
   #loadConfig () {
-    return this.#loadScript(CONFIG, jsStr2obj);
+    return this.#loadScript(CONFIG, (content, safe) => safe ? jsStr2obj(content) : JSON.parse(content));
   }
 
   /**
@@ -216,9 +216,11 @@ export default class View extends Base {
    * @returns {Promise<void>} A promise that resolves when the data is loaded.
    */
   #loadData () {
-    return this.#loadScript(DATA, (content) => isLikeObject(content) || isLikeArray(content) ?
-      jsStr2obj(content) :
-      csvStr2obj(content));
+    return this.#loadScript(DATA, (content, safe) => {
+      return isLikeObject(content) || isLikeArray(content) ?
+        (safe ? jsStr2obj(content) : JSON.parse(content)) :
+        csvStr2obj(content)
+    });
   }
 
   constructor () {
