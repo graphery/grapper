@@ -157,7 +157,6 @@ export default class View extends Base {
     ctx.content.innerHTML = '';
     const template = this.querySelector('template')?.content || this.querySelector(SVG);
     if (!ctx.svgSrc) {
-      debugger
       ctx.svgSrc = template?.getAttribute('src');
     }
     if (ctx.svgSrc) {
