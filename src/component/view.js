@@ -155,7 +155,7 @@ export default class View extends Base {
     const ctx             = this [CONTEXT];
     this.#svg             = null;
     ctx.content.innerHTML = '';
-    const template = this.querySelector('template')?.content || this.querySelector(SVG);
+    const template = this.querySelector('template');
     if (!ctx.svgSrc) {
       ctx.svgSrc = template?.getAttribute('src');
     }
@@ -166,8 +166,9 @@ export default class View extends Base {
         this.#error(err.message, SVG, ctx.svgSrc, this.#errorsLoading);
       }
     } else {
-      if (template) {
-        ctx.content.append(template.cloneNode(true));
+      const templateContent = template?.content || this.querySelector(SVG);
+      if (templateContent) {
+        ctx.content.append(templateContent.cloneNode(true));
       }
     }
     const svg = ctx.content.querySelector(SVG);
