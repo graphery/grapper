@@ -1,14 +1,8 @@
-export const title       = '98) Unsafe data';
-export const description = 'Load data with unsafe javascript content';
+export const title       = '98) template src and data src';
+export const description = 'template src and script type="data" with src attributes';
 
-
-export default `<grapper-view intersection-ratio="1" style="width: 50px;" value="0">
-  <template>
-    <svg viewBox="0 0 100 100">
-      <text x="10" y="50" font-size="40" g-content="value">0</text>
-    </svg>
-  </template>
-  <script type="data" src="/test/component/view/assets/unsafe.data.txt"/>
+export default `<grapper-view  style="width: 100px">       
+  <template src="/test/component/view/assets/circles.svg"></template> 
+  <script type="data" src="/test/component/view/assets/circles.csv"></script>
 </grapper-view>
-<div id="result"></div>
-`
+`;

@@ -112,11 +112,12 @@ export default class View extends Base {
   /**
    * Fetches the content from the specified URL.
    * @param {string} url - The URL to fetch data from.
+   * @param {boolean} [unsafe=false] - Whether to use unsafe mode for getting the content.
    * @throws {Error} If the fetch request failed or the status code is not 200.
    * @returns {Promise<string>} A promise that resolves to the fetched content as text.
    */
-  async #fetch (url) {
-    const res = await fetch(url)
+  async #fetch (url, unsafe) {
+    const res = await fetch(url, unsafe ? {} : {mode: 'same-origin', credentials: 'same-origin'});
     if (res.status !== 200) {
       throw new Error(`${ res.statusText } (${ res.status }): ${ res.url }`);
     }
@@ -184,7 +185,7 @@ export default class View extends Base {
       ctx[key] = el.getAttribute('src');
     }
     let content = ctx[key] ?
-      await this.#fetch(ctx[key]).catch(err => this.#error(err.message, kind, ctx[key], this.#errorsLoading)) :
+      await this.#fetch(ctx[key], kind === 'data').catch(err => this.#error(err.message, kind, ctx[key], this.#errorsLoading)) :
       el?.textContent;
     if (content) {
       try {

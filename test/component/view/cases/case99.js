@@ -1,14 +1,8 @@
-export const title       = '99) Unsafe config';
-export const description = 'Load config with unsafe javascript content';
+export const title       = '99) svg src and data src';
+export const description = 'srv src and script type="data" with src attributes';
 
-
-export default `<grapper-view intersection-ratio="1" style="width: 50px;" value="0">
-  <template>
-    <svg viewBox="0 0 100 100">
-      <text x="10" y="50" font-size="40" g-content="$.config.value">0</text>
-    </svg>
-  </template>
-  <script type="config" src="/test/component/view/assets/unsafe.data.txt"/>
+export default `<grapper-view  style="width: 100px">       
+  <svg src="/test/component/view/assets/circles.svg"></svg> 
+  <script type="data" src="/test/component/view/assets/circles.csv"></script>
 </grapper-view>
-<div id="result"></div>
-`
+`;

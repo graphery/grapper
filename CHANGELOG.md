@@ -2,8 +2,10 @@
 
 ## next
 
-- SECURITY: fix a potential XSS vulnerability with external data and config.
 - Add support to `src` in `template` for loading external SVG with directives.
+- SECURITY: fix a potential XSS vulnerability with external data and config.
+- SECURITY: external svg, methods, or config can only be loaded from the same origin as the page, 
+  only data can be loaded from a different origin.
 
 ## 1.1.0-beta.9 (2025-08-27)
 
@@ -132,7 +134,7 @@
 
 - Fixed catastrophic backtracking in regex checks when wrong data is processed.
 - Added support for simple data (datum), i.e. `data`, in addition to objects and arrays, can be a
-  simple number, string or boolean value.
+  simple number, string, or boolean value.
 - Added `CONTRIBUTING.md` and `CODE_OF_CONDUCT.md`.
 
 ## Graphane 1.0.0-beta.2 (2024-09-08)
