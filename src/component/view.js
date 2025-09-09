@@ -201,7 +201,6 @@ export default class View extends Base {
    * @return {Promise<void>} A Promise that resolves once the methods are loaded.
    */
   #loadMethods () {
-    debugger;
     return this.#loadScript(METHODS, (content) => getFunctions({
       $ : toContext(this),
     }, content));
@@ -266,7 +265,7 @@ export default class View extends Base {
       if (target === this && !mutation.attributeName) {
         return this.load();
       }
-      if (target.tagName.toLowerCase() === SVG) {
+      if ([SVG, 'template'].includes(target.tagName.toLowerCase())) {
         promises.push(this.#loadSVG());
       } else if (target.tagName === 'SCRIPT') {
         const load = {
