@@ -164,7 +164,7 @@ export default class View extends Base {
       try {
         ctx.content.innerHTML = await this.#fetch(ctx.svgSrc, template?.hasAttribute('safe-origin'));
       } catch (err) {
-        this.#error(err.message, 'template', ctx.svgSrc, this.#errorsLoading);
+        this.#error(err.message, SVG, ctx.svgSrc, this.#errorsLoading);
       }
     } else {
       const templateContent = template?.content || this.querySelector(SVG);

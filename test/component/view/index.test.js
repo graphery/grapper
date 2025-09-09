@@ -24,7 +24,12 @@ const errors = {
   case064 : `Not Found (404): http://localhost:7200/non-exist.js in methods ./non-exist.js`,
   case065 : `y is not defined in methods x = y * 10;`,
   case089 : `Failed to fetch dynamically imported module: http://localhost:7200/non-exist.js in plugin ./non-exist.js The expression "value * 2" return NaN (Not a Number) value in g-bind:x="value * 2" <rect :x="value * 2" @click="wrong()" y="0" width="100" height="100" fill="red"></rect> wrong is not defined in g-on:click="wrong()" <rect :x="value * 2" @click="wrong()" y="0" width="100" height="100" fill="red"></rect> `,
-  case090 : `{"message":"Failed to fetch dynamically imported module: http://localhost:7200/non-exist.js","scope":"plugin","code":"./non-exist.js"} {"message":"The expression \\"value * 2\\" return NaN (Not a Number) value","scope":{"directive":"g-bind","argument":"x","expression":"value * 2"},"code":"<rect :x=\\"value * 2\\" @click=\\"wrong()\\" y=\\"0\\" width=\\"100\\" height=\\"100\\" fill=\\"red\\"></rect>"} {"message":"wrong is not defined","scope":{"directive":"g-on","argument":"click","expression":"wrong()"},"code":"<rect :x=\\"value * 2\\" @click=\\"wrong()\\" y=\\"0\\" width=\\"100\\" height=\\"100\\" fill=\\"red\\"></rect>"}`
+  case090 : `{"message":"Failed to fetch dynamically imported module: http://localhost:7200/non-exist.js","scope":"plugin","code":"./non-exist.js"} {"message":"The expression \\"value * 2\\" return NaN (Not a Number) value","scope":{"directive":"g-bind","argument":"x","expression":"value * 2"},"code":"<rect :x=\\"value * 2\\" @click=\\"wrong()\\" y=\\"0\\" width=\\"100\\" height=\\"100\\" fill=\\"red\\"></rect>"} {"message":"wrong is not defined","scope":{"directive":"g-on","argument":"click","expression":"wrong()"},"code":"<rect :x=\\"value * 2\\" @click=\\"wrong()\\" y=\\"0\\" width=\\"100\\" height=\\"100\\" fill=\\"red\\"></rect>"}`,
+  case100 : `Failed to fetch in methods http://127.0.0.1:7200/test/component/view/assets/colors.js`,
+  case102 : `Failed to fetch in config http://127.0.0.1:7200/test/component/view/assets/config.json`,
+  case104 : `Failed to fetch in svg http://127.0.0.1:7200/test/component/view/assets/circles.svgFailed to fetch in data http://127.0.0.1:7200/test/component/view/assets/circles.csv`,
+  case107 : `Unexpected token '(', ..." "value": (() => con"... is not valid JSON in config { "value": (() => console.log('!!! UNSAFE CODE !!!') || 10)() }`,
+  case108 : `Unexpected token '(', ..." "value": (() => con"... is not valid JSON in data { "value": (() => console.log('!!! UNSAFE CODE !!!') || 10)() }`,
 }
 
 const dir = await opendir(FOLDER);
@@ -38,7 +43,7 @@ for await (const dirent of dir) {
       await page.goto(`/load.html?case=${ URL }${ dirent.name }&imp=${ IMPORT }`);
     });
 
-    if (!['case007', 'case008', 'case051', 'case052', 'case053'].includes(code)) {
+    if (!['case007', 'case008', 'case051', 'case052', 'case053', 'case104'].includes(code)) {
       test('compare image', async ({page}) => {
         const show = page.locator(
           code === 'case091' ? '#group' :
