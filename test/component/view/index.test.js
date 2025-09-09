@@ -10,21 +10,21 @@ const URL    = ROOT + 'test/component/view/cases/';
 const FOLDER = './test/component/view/cases/';
 
 const errors = {
-  case07 : `Not Found (404): http://localhost:7200/src/grapper-view/test/assets/unknown.svg in svg /src/grapper-view/test/assets/unknown.svg`,
-  case54 : `wrong is not defined in g-bind:x="wrong" <rect :x="wrong" :y="fail" width="100" height="100" fill="red"></rect> fail is not defined in g-bind:y="fail" <rect :x="wrong" :y="fail" width="100" height="100" fill="red"></rect>`,
-  case55 : `wrong is not defined in g-content="wrong" <text x="0" y="0" g-content="wrong"></text>`,
-  case56 : `wrong is not defined in g-for="x of wrong" <g g-for="x of wrong"> <rect :x="x" :y="y" width="10" height="10"></rect> </g>`,
-  case57 : `wrong is not defined in g-if="wrong" <g g-if="wrong"> <rect x="0" y="0" width="100" height="100" fill="red"></rect> </g> `,
-  case58 : `wrong is not defined in g-on:click="wrong" <rect @click="wrong" x="0" y="0" width="100" height="100" fill="red" style="cursor: pointer"></rect> `,
-  case59 : `Invalid or unexpected token in data {a": 10}`,
-  case60 : `y is not defined in methods x = y; `,
-  case61 : `x is not defined in config {conf: x + 10}`,
-  case62 : `Failed to fetch dynamically imported module: http://localhost:7200/non-exist.js in plugin ./non-exist.js`,
-  case63 : `Not Found (404): http://localhost:7200/non-exist.json in data ./non-exist.json`,
-  case64 : `Not Found (404): http://localhost:7200/non-exist.js in methods ./non-exist.js`,
-  case65 : `y is not defined in methods x = y * 10;`,
-  case89 : `Failed to fetch dynamically imported module: http://localhost:7200/non-exist.js in plugin ./non-exist.js The expression "value * 2" return NaN (Not a Number) value in g-bind:x="value * 2" <rect :x="value * 2" @click="wrong()" y="0" width="100" height="100" fill="red"></rect> wrong is not defined in g-on:click="wrong()" <rect :x="value * 2" @click="wrong()" y="0" width="100" height="100" fill="red"></rect> `,
-  case90 : `{"message":"Failed to fetch dynamically imported module: http://localhost:7200/non-exist.js","scope":"plugin","code":"./non-exist.js"} {"message":"The expression \\"value * 2\\" return NaN (Not a Number) value","scope":{"directive":"g-bind","argument":"x","expression":"value * 2"},"code":"<rect :x=\\"value * 2\\" @click=\\"wrong()\\" y=\\"0\\" width=\\"100\\" height=\\"100\\" fill=\\"red\\"></rect>"} {"message":"wrong is not defined","scope":{"directive":"g-on","argument":"click","expression":"wrong()"},"code":"<rect :x=\\"value * 2\\" @click=\\"wrong()\\" y=\\"0\\" width=\\"100\\" height=\\"100\\" fill=\\"red\\"></rect>"}`
+  case007 : `Not Found (404): http://localhost:7200/src/grapper-view/test/assets/unknown.svg in svg /src/grapper-view/test/assets/unknown.svg`,
+  case054 : `wrong is not defined in g-bind:x="wrong" <rect :x="wrong" :y="fail" width="100" height="100" fill="red"></rect> fail is not defined in g-bind:y="fail" <rect :x="wrong" :y="fail" width="100" height="100" fill="red"></rect>`,
+  case055 : `wrong is not defined in g-content="wrong" <text x="0" y="0" g-content="wrong"></text>`,
+  case056 : `wrong is not defined in g-for="x of wrong" <g g-for="x of wrong"> <rect :x="x" :y="y" width="10" height="10"></rect> </g>`,
+  case057 : `wrong is not defined in g-if="wrong" <g g-if="wrong"> <rect x="0" y="0" width="100" height="100" fill="red"></rect> </g> `,
+  case058 : `wrong is not defined in g-on:click="wrong" <rect @click="wrong" x="0" y="0" width="100" height="100" fill="red" style="cursor: pointer"></rect> `,
+  case059 : `Invalid or unexpected token in data {a": 10}`,
+  case060 : `y is not defined in methods x = y; `,
+  case061 : `x is not defined in config {conf: x + 10}`,
+  case062 : `Failed to fetch dynamically imported module: http://localhost:7200/non-exist.js in plugin ./non-exist.js`,
+  case063 : `Not Found (404): http://localhost:7200/non-exist.json in data ./non-exist.json`,
+  case064 : `Not Found (404): http://localhost:7200/non-exist.js in methods ./non-exist.js`,
+  case065 : `y is not defined in methods x = y * 10;`,
+  case089 : `Failed to fetch dynamically imported module: http://localhost:7200/non-exist.js in plugin ./non-exist.js The expression "value * 2" return NaN (Not a Number) value in g-bind:x="value * 2" <rect :x="value * 2" @click="wrong()" y="0" width="100" height="100" fill="red"></rect> wrong is not defined in g-on:click="wrong()" <rect :x="value * 2" @click="wrong()" y="0" width="100" height="100" fill="red"></rect> `,
+  case090 : `{"message":"Failed to fetch dynamically imported module: http://localhost:7200/non-exist.js","scope":"plugin","code":"./non-exist.js"} {"message":"The expression \\"value * 2\\" return NaN (Not a Number) value","scope":{"directive":"g-bind","argument":"x","expression":"value * 2"},"code":"<rect :x=\\"value * 2\\" @click=\\"wrong()\\" y=\\"0\\" width=\\"100\\" height=\\"100\\" fill=\\"red\\"></rect>"} {"message":"wrong is not defined","scope":{"directive":"g-on","argument":"click","expression":"wrong()"},"code":"<rect :x=\\"value * 2\\" @click=\\"wrong()\\" y=\\"0\\" width=\\"100\\" height=\\"100\\" fill=\\"red\\"></rect>"}`
 }
 
 const dir = await opendir(FOLDER);
@@ -38,17 +38,17 @@ for await (const dirent of dir) {
       await page.goto(`/load.html?case=${ URL }${ dirent.name }&imp=${ IMPORT }`);
     });
 
-    if (!['case07', 'case08', 'case51', 'case52', 'case53'].includes(code)) {
+    if (!['case007', 'case008', 'case051', 'case052', 'case053'].includes(code)) {
       test('compare image', async ({page}) => {
         const show = page.locator(
-          code === 'case91' ? '#group' :
-            code === 'case94' ? 'g-composer' :
+          code === 'case091' ? '#group' :
+            code === 'case094' ? 'g-composer' :
               'grapper-view');
         await expect(show).toHaveScreenshot()
       });
     }
 
-    if (['case04', 'case05', 'case40', 'case41', 'case43', 'case51', 'case52', 'case53'].includes(code)) {
+    if (['case004', 'case005', 'case040', 'case041', 'case043', 'case051', 'case052', 'case053'].includes(code)) {
       test('compare image after run action', async ({page}) => {
         const run = page.locator('#run');
         await run.click();
@@ -58,7 +58,7 @@ for await (const dirent of dir) {
       });
     }
 
-    if (['case29', 'case30', 'case31', 'case32'].includes(code)) {
+    if (['case029', 'case030', 'case031', 'case032'].includes(code)) {
       test('compare image after run action', async ({page}) => {
         const run = page.locator('grapper-view', {hasText : 'click'});
         await run.click();
@@ -67,7 +67,7 @@ for await (const dirent of dir) {
         await expect(show).toHaveScreenshot()
       });
     }
-    if (['case35', 'case96', 'case97', 'case98'].includes(code)) {
+    if (['case035', 'case096', 'case097'].includes(code)) {
       test('compare image after run action', async ({page}) => {
         const run = page.locator('#check');
         await run.click();
@@ -77,7 +77,7 @@ for await (const dirent of dir) {
       });
     }
 
-    if ('case08' === code) {
+    if ('case008' === code) {
       test('events', async ({page}) => {
         const result = page.locator('#events');
         await expect(result).toHaveText(/resize/)
@@ -85,7 +85,7 @@ for await (const dirent of dir) {
       });
     }
 
-    if ('case09' === code) {
+    if ('case009' === code) {
       test('hidden', async ({page}) => {
         const select = page.locator('#_hidden');
         await select.selectOption('');
@@ -98,7 +98,7 @@ for await (const dirent of dir) {
     if (errors[code]) {
       test('error', async ({page}) => {
         const result = page.locator('#result');
-        if (['case58', 'case89', 'case90'].includes(code)) {
+        if (['case058', 'case089', 'case090'].includes(code)) {
           const run = page.locator('grapper-view');
           await run.click();
           await wait(500);
@@ -107,7 +107,7 @@ for await (const dirent of dir) {
       });
     }
 
-    if (['case96', 'case97'].includes(code)) {
+    if (['case096', 'case097'].includes(code)) {
       test('events', async ({page}) => {
         await wait(500);
         const result = page.locator('#result');
