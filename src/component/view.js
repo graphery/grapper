@@ -112,12 +112,12 @@ export default class View extends Base {
   /**
    * Fetches the content from the specified URL.
    * @param {string} url - The URL to fetch data from.
-   * @param {boolean} [unsafe=false] - Whether to use unsafe mode for getting the content.
+   * @param {boolean} [safe=false] - Whether to use safe mode for getting the content.
    * @throws {Error} If the fetch request failed or the status code is not 200.
    * @returns {Promise<string>} A promise that resolves to the fetched content as text.
    */
-  async #fetch (url, unsafe) {
-    const res = await fetch(url, unsafe ? {} : {mode: 'same-origin', credentials: 'same-origin'});
+  async #fetch (url, safe) {
+    const res = await fetch(url, safe ? {} : {mode: 'same-origin', credentials: 'same-origin'});
     if (res.status !== 200) {
       throw new Error(`${ res.statusText } (${ res.status }): ${ res.url }`);
     }
@@ -162,9 +162,9 @@ export default class View extends Base {
     }
     if (ctx.svgSrc) {
       try {
-        ctx.content.innerHTML = await this.#fetch(ctx.svgSrc);
+        ctx.content.innerHTML = await this.#fetch(ctx.svgSrc, template.hasAttribute('safe-origin'));
       } catch (err) {
-        this.#error(err.message, SVG, ctx.svgSrc, this.#errorsLoading);
+        this.#error(err.message, 'template', ctx.svgSrc, this.#errorsLoading);
       }
     } else {
       const templateContent = template?.content || this.querySelector(SVG);
@@ -181,11 +181,13 @@ export default class View extends Base {
     const ctx = this[CONTEXT];
     const key = kind + 'Src';
     const el  = this.querySelector(queryScript(kind));
+    let safe  = true;
     if (el) {
       ctx[key] = el.getAttribute('src');
+      safe     = el.hasAttribute('safe-origin');
     }
     let content = ctx[key] ?
-      await this.#fetch(ctx[key], kind === 'data').catch(err => this.#error(err.message, kind, ctx[key], this.#errorsLoading)) :
+      await this.#fetch(ctx[key], safe).catch(err => this.#error(err.message, kind, ctx[key], this.#errorsLoading)) :
       el?.textContent;
     if (content) {
       try {
