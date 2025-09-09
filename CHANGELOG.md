@@ -7,16 +7,16 @@
   - `data-src="<url>"`, use `<script type="data" src="<url>">` instead.
   - `methods-src="<url>"`, use `<script type="methods" src="<url>">` instead.
   - `config-src="<url>"`, use `<script type="config" src="<url>">` instead.
-- SECURITY: Fix a potential XSS vulnerability with external data and config:
-  - `<script type="data" src="<url>">` does not accept JSON5, only CSV, or JSON.
-  - `<script type="config" src="<url>">` does not accept JSON5, only JSON.
 - By default, external resources load with `src` in template, data, methods, or config can only be
-  loaded from the same origin as the page.
-- Add support to `safe-origin` attribute for load external resources from other origins:
+  loaded from the same origin as the page. Add support to `safe-origin` attribute for load external
+  resources from other origins:
   - `<template" src="<external-url>" safe-origin>`.
   - `<script type="data" src="<external-url>" safe-origin>`.
   - `<script type="methods" src="<external-url>" safe-origin>`.
   - `<script type="config" src="<external-url>" safe-origin>`.
+- SECURITY: Fix a potential XSS vulnerability with external data and config:
+  - `<script type="data" src="<url>">` does not accept JSON5, only CSV, or JSON.
+  - `<script type="config" src="<url>">` does not accept JSON5, only JSON.
 
 ## 1.1.0-beta.9 (2025-08-27)
 
