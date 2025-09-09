@@ -201,6 +201,7 @@ export default class View extends Base {
    * @return {Promise<void>} A Promise that resolves once the methods are loaded.
    */
   #loadMethods () {
+    debugger;
     return this.#loadScript(METHODS, (content) => getFunctions({
       $ : toContext(this),
     }, content));
@@ -274,7 +275,7 @@ export default class View extends Base {
           config  : this.#loadConfig
         }[target.type.toLowerCase()];
         if (load) {
-          promises.push(load());
+          promises.push(load.bind(this)());
         }
       }
     }
