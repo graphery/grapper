@@ -1,5 +1,4 @@
-// 32) addBefore
-
+export const title       = '32) addBefore';
 export const description = `
 add a circle before than other element
 `;

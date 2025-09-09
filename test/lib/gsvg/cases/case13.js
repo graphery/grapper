@@ -1,5 +1,4 @@
-// 13) check if an SVG is wrapped
-
+export const title       = '13) check if an SVG is wrapped';
 export const description = `
 gSVG.isWrapped() return true with a wrapped element
 `;

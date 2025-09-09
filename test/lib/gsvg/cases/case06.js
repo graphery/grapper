@@ -1,5 +1,4 @@
-// 6) Wrap a gSVG element
-
+export const title       = '6) Wrap a gSVG element';
 export const description = `
 (re)wrap an gSVG element
 `;

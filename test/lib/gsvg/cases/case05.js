@@ -1,5 +1,4 @@
-// 5) Get a SVG element
-
+export const title       = '5) Get a SVG element';
 export const description = `
 get and wrap an existing SVG element
 `;

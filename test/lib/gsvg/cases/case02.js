@@ -1,5 +1,4 @@
-// 2) viewBox as Array
-
+export const title       = '2) viewBox as Array';
 export const description = `
 create a SVG element with a viewBox defined as an array
 `;

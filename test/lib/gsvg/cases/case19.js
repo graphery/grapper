@@ -1,5 +1,4 @@
-// 19) querySelector() with wrong selector
-
+export const title       = '19) querySelector() with wrong selector';
 export const description = `
 querySelector() return a undefined element with a wrong selector
 `;

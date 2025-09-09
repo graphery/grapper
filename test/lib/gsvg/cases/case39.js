@@ -1,5 +1,4 @@
-// 39) call to add() with null
-
+export const title       = '39) call to add() with null';
 export const description = `
 special case when call to gSVG with null
 `;

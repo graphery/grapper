@@ -1,5 +1,4 @@
-// 30) get and set d attribute of path
-
+export const title       = '30) get and set d attribute of path';
 export const description = `
 get and set d attribute from path element
 `;

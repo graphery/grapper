@@ -1,5 +1,4 @@
-// 20) children()
-
+export const title       = '20) children()';
 export const description = `
 children return an array of wrapped elements
 `;

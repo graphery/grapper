@@ -1,5 +1,4 @@
-// 38) call to gSVG() with null
-
+export const title       = '38) call to gSVG() with null';
 export const description = `
 special case when call to gSVG with null
 `;

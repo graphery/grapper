@@ -1,5 +1,4 @@
-// 36) add a plugin with a static method
-
+export const title       = '36) add a plugin with a static method';
 export const description = `
 define a static method by plugin extension
 `;

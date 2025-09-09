@@ -1,5 +1,4 @@
-// 4) Create SVG with explicit tag
-
+export const title       = '4) Create SVG with explicit tag';
 export const description = `
 create a SVG element with the tag SVG
 `;

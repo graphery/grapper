@@ -1,5 +1,4 @@
-// 12) check if a native SVG is wrapped
-
+export const title       = '12) check if a native SVG is wrapped';
 export const description = `
 gSVG.isWrapped() return false with a no wrapped element
 `;

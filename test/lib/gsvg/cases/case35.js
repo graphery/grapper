@@ -1,5 +1,4 @@
-// 35) add a plugin
-
+export const title       = '35) add a plugin';
 export const description = `
 define and add a plugin
 `;

@@ -1,5 +1,4 @@
-// 14) add a circle
-
+export const title       = '14) add a circle';
 export const description = `
 add a circle into a SVG element
 `;

@@ -1,5 +1,4 @@
-// 16) create a native circle and add
-
+export const title       = '16) create a native circle and add';
 export const description = `
 create a native circle and add into the SVG element
 `;
