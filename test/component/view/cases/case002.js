@@ -13,5 +13,7 @@ export function script () {
 }
 
 export default `
-<grapper-view svg-src="/test/component/view/assets/image.svg" style="width: 200px; height: 200px;"> </grapper-view>
+<grapper-view style="width: 200px; height: 200px;">
+  <template src="/test/component/view/assets/image.svg" >
+</grapper-view>
 `;

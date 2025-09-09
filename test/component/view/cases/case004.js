@@ -5,7 +5,7 @@ export function script() {
   const component        = document.querySelector('grapper-view');
   const alternativeImage = '/test/component/view/assets/check.svg';
   document.querySelector('#run').addEventListener('click', () => {
-    component.svgSrc = alternativeImage;
+    component.templateSrc = alternativeImage;
   });
 }
 

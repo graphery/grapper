@@ -13,5 +13,7 @@ export function script () {
 }
 
 export default `<div style="width: 100px; height: 100px; overflow-y: scroll; overflow-x: hidden; border: 1px solid grey; text-align: center">
-  <grapper-view svg-src="/test/component/view/assets/check.svg" intersection-ratio="1" style="width: 50px; margin-top: 120px;"></grapper-view>
+  <grapper-view intersection-ratio="1" style="width: 50px; margin-top: 120px;">
+    <template src="/test/component/view/assets/check.svg" ></template>
+  </grapper-view>
 </div>`

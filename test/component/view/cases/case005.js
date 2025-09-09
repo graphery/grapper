@@ -6,10 +6,10 @@ export function script () {
   const initSrc   = '/test/component/view/assets/image.svg';
   const altSrc    = '/test/component/view/assets/check.svg';
   document.querySelector('#run').addEventListener('click', () => {
-    component.svgSrc = component.svgSrc === initSrc ? altSrc : initSrc;
+    component.templateSrc = component.templateSrc === initSrc ? altSrc : initSrc;
   });
   const update = () => {
-    if (component.svgSrc === altSrc) {
+    if (component.templateSrc === altSrc) {
       component.svg.fill('green');
     } else {
       component.svg.fill('red');
@@ -21,6 +21,8 @@ export function script () {
   }
 }
 
-export default `<grapper-view svg-src="/test/component/view/assets/image.svg" style="width: 200px; height: 200px;"></grapper-view>
+export default `<grapper-view style="width: 200px; height: 200px;">
+  <template src="/test/component/view/assets/image.svg"></template>
+</grapper-view>
 <button id="run">Change the content</button>
 `;

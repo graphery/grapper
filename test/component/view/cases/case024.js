@@ -1,7 +1,7 @@
 export const title       = '24) render with svg methods-src';
 export const description = `Use the render template with svg and methods-src`;
 
-export default `<grapper-view methods-src="/test/component/view/assets/colors.js">
+export default `<grapper-view>
   <svg viewBox="0 0 100 100" id="svg" width="100">
     <g g-for="value of data">
         <circle   :cx="value.cx"
@@ -17,5 +17,6 @@ export default `<grapper-view methods-src="/test/component/view/assets/colors.js
     {cx: 50, cy: 50},
     {cx: 75, cy: 75}
   ]</script>
+  <script type="methods" src="/test/component/view/assets/colors.js"></script>
 </grapper-view>
 `;

@@ -19,7 +19,6 @@ const SVG         = 'svg';        // Keep in lowercase for Safari
 const METHODS     = 'methods';
 const CONFIG      = 'config';
 const DATA        = 'data';
-const SRC         = '-src';
 const queryScript = (kind) => `script[type=${ kind }],g-script[type=${ kind }]`;
 const noneSize    = ['0px', 'auto'];
 const isNotSize   = (svg) => {
@@ -157,14 +156,14 @@ export default class View extends Base {
     this.#svg             = null;
     ctx.content.innerHTML = '';
     const template = this.querySelector('template');
-    if (!ctx.svgSrc) {
-      ctx.svgSrc = template?.getAttribute('src');
+    if (!ctx.templateSrc) {
+      ctx.templateSrc = template?.getAttribute('src');
     }
-    if (ctx.svgSrc) {
+    if (ctx.templateSrc) {
       try {
-        ctx.content.innerHTML = await this.#fetch(ctx.svgSrc, template?.hasAttribute('safe-origin'));
+        ctx.content.innerHTML = await this.#fetch(ctx.templateSrc, template?.hasAttribute('safe-origin'));
       } catch (err) {
-        this.#error(err.message, SVG, ctx.svgSrc, this.#errorsLoading);
+        this.#error(err.message, SVG, ctx.templateSrc, this.#errorsLoading);
       }
     } else {
       const templateContent = template?.content || this.querySelector(SVG);
@@ -386,13 +385,7 @@ View.prototype.update = debounceMethod(View.prototype.update, 1)
 // Define the component
 define(View)
   .ext(intersection)
-  .attr({name : SVG + SRC, type : STRING, value : '', posUpdate : RENDER})
   .attr({name : DATA, type : OBJECT, value : [], posUpdate : UPDATE})
-  .attr({name : DATA + SRC, type : STRING, posUpdate : RENDER})
-  .prop({name : METHODS, type : OBJECT, value : {}, posUpdate : UPDATE})
-  .attr({name : METHODS + SRC, type : STRING, posUpdate : RENDER})
-  .attr({name : CONFIG, type : OBJECT, value : {}, posUpdate : UPDATE})
-  .attr({name : CONFIG + SRC, type : STRING, posUpdate : RENDER})
   .attr({
     name : 'value',
     set (v) {
@@ -402,6 +395,12 @@ define(View)
       return this.data?.value;
     }
   })
+  .attr({name : CONFIG, type : OBJECT, value : {}, posUpdate : UPDATE})
+  .prop({name : METHODS, type : OBJECT, value : {}, posUpdate : UPDATE})
+  .prop({name : 'templateSrc', type : STRING, value : '', posUpdate : 'load'})
+  .prop({name : 'dataSrc', type : STRING, value : '', posUpdate : 'load'})
+  .prop({name : 'methodsSrc', type : STRING, value : '', posUpdate : 'load'})
+  .prop({name : 'configSrc', type : STRING, value : '', posUpdate : 'load'})
   .tag('grapper-view')
   .alias('g-composer');
 

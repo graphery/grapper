@@ -3,5 +3,7 @@ export const description = `Display a svg file`;
 
 
 export default () => {
-  return `<grapper-view svg-src="/test/component/view/assets/image.svg" style="width: 200px; height: 200px;"></grapper-view>`;
+  return `<grapper-view style="width: 200px; height: 200px;">
+    <template src="/test/component/view/assets/image.svg"></template> 
+  </grapper-view>`;
 }

@@ -6,7 +6,7 @@ export function script () {
   component.addEventListener('error', (evt) => {
     document.querySelector('#result').innerHTML = evt.detail;
   });
-  component.svgSrc = "/src/grapper-view/test/assets/unknown.svg";
+  component.templateSrc = "/src/grapper-view/test/assets/unknown.svg";
 }
 
 export default `<grapper-view ></grapper-view>
