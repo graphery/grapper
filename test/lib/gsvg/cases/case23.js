@@ -1,5 +1,4 @@
-// 23) remove an SVG child
-
+export const title       = '23) remove an SVG child';
 export const description = `
 remove() delete a child from the SVG
 `;

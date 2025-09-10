@@ -14,15 +14,24 @@ import gSVG               from '../lib/gsvg.js';
 import render             from '../plugins/template.engine.js';
 import shapes             from '../plugins/shapes.js';
 
-const UPDATE      = 'update';
-const SVG         = 'svg';        // Keep in lowercase for Safari
-const METHODS     = 'methods';
-const CONFIG      = 'config';
-const DATA        = 'data';
-const SRC         = '-src';
-const queryScript = (kind) => `script[type=${ kind }],g-script[type=${ kind }]`;
-const noneSize    = ['0px', 'auto'];
-const isNotSize   = (svg) => {
+const UPDATE       = 'update';
+const LOAD         = 'load';
+const TEMPLATE     = 'template';
+const SVG          = 'svg';        // Keep in lowercase for Safari
+const DATA         = 'data';
+const METHODS      = 'methods';
+const CONFIG       = 'config';
+const PLUGIN       = 'plugin';
+const SRC_PROP     = 'Src';
+const SRC_ATTR     = 'src';
+const TRUST_ORIGIN = 'trust-origin';
+const SAME_ORIGIN  = 'same-origin';
+const queryScript  = (kind) => `script[type=${ kind }],g-script[type=${ kind }]`;
+const query        = (t, s) => t.querySelector(s);
+const getAttr      = (el, attr) => el?.getAttribute(attr);
+const hasAttr      = (el, attr) => el?.hasAttribute(attr);
+const noneSize     = ['0px', 'auto'];
+const isNotSize    = (svg) => {
   const style = getComputedStyle(svg.el);
   return noneSize.includes(style.width) && noneSize.includes(style.height);
 };
@@ -112,11 +121,12 @@ export default class View extends Base {
   /**
    * Fetches the content from the specified URL.
    * @param {string} url - The URL to fetch data from.
+   * @param {boolean} [trust=false] - Whether to use safe mode for getting the content.
    * @throws {Error} If the fetch request failed or the status code is not 200.
    * @returns {Promise<string>} A promise that resolves to the fetched content as text.
    */
-  async #fetch (url) {
-    const res = await fetch(url)
+  async #fetch (url, trust) {
+    const res = await fetch(url, trust ? {} : {mode : SAME_ORIGIN, credentials : SAME_ORIGIN});
     if (res.status !== 200) {
       throw new Error(`${ res.statusText } (${ res.status }): ${ res.url }`);
     }
@@ -129,9 +139,9 @@ export default class View extends Base {
    * @returns {Promise<void>} - A promise that resolves when all plugins are loaded.
    */
   async #loadPlugins () {
-    const plugins = [...this.querySelectorAll(queryScript('plugin'))];
+    const plugins = [...this.querySelectorAll(queryScript(PLUGIN))];
     for (let plugin of plugins) {
-      const src = plugin.getAttribute('src');
+      const src = getAttr(plugin, SRC_ATTR);
       if (src) {
         const url = new URL(src, document.location.href);
         try {
@@ -140,7 +150,7 @@ export default class View extends Base {
             gSVG.install(lib.default);
           }
         } catch (err) {
-          this.#error(err.message, 'plugin', src, this.#errorsLoading);
+          this.#error(err.message, PLUGIN, src, this.#errorsLoading);
         }
       }
     }
@@ -155,19 +165,23 @@ export default class View extends Base {
     const ctx             = this [CONTEXT];
     this.#svg             = null;
     ctx.content.innerHTML = '';
-    if (ctx.svgSrc) {
+    const template        = query(this, TEMPLATE);
+    if (!ctx.templateSrc) {
+      ctx.templateSrc = getAttr(template, SRC_ATTR);
+    }
+    if (ctx.templateSrc) {
       try {
-        ctx.content.innerHTML = await this.#fetch(ctx.svgSrc);
+        ctx.content.innerHTML = await this.#fetch(ctx.templateSrc, template?.hasAttribute(TRUST_ORIGIN));
       } catch (err) {
-        this.#error(err.message, SVG, ctx.svgSrc, this.#errorsLoading);
+        this.#error(err.message, SVG, ctx.templateSrc, this.#errorsLoading);
       }
     } else {
-      const template = this.querySelector('template')?.content || this.querySelector(SVG);
-      if (template) {
-        ctx.content.append(template.cloneNode(true));
+      const templateContent = template?.content || query(this, SVG);
+      if (templateContent) {
+        ctx.content.append(templateContent.cloneNode(true));
       }
     }
-    const svg = ctx.content.querySelector(SVG);
+    const svg = query(ctx.content, SVG);
     this.#svg = svg ? gSVG(svg) : null;
     return true;
   }
@@ -175,16 +189,18 @@ export default class View extends Base {
   async #loadScript (kind, reviver) {
     const ctx = this[CONTEXT];
     const key = kind + 'Src';
-    const el  = this.querySelector(queryScript(kind));
+    const el  = query(this, queryScript(kind));
+    let safe  = true;
     if (el) {
-      ctx[key] = el.getAttribute('src');
+      ctx[key] = getAttr(el, SRC_ATTR);
+      safe     = hasAttr(el, TRUST_ORIGIN);
     }
     let content = ctx[key] ?
-      await this.#fetch(ctx[key]).catch(err => this.#error(err.message, kind, ctx[key], this.#errorsLoading)) :
+      await this.#fetch(ctx[key], safe).catch(err => this.#error(err.message, kind, ctx[key], this.#errorsLoading)) :
       el?.textContent;
     if (content) {
       try {
-        ctx[kind] = reviver(content);
+        ctx[kind] = reviver(content, !ctx[key]);
       } catch (err) {
         this.#error(err.message, kind, content, this.#errorsLoading);
       }
@@ -207,7 +223,9 @@ export default class View extends Base {
    * @return {Promise<void>} A promise that resolves after loading the configuration.
    */
   #loadConfig () {
-    return this.#loadScript(CONFIG, jsStr2obj);
+    return this.#loadScript(CONFIG, (content, safe) => safe ?
+      jsStr2obj(content) :
+      JSON.parse(content));
   }
 
   /**
@@ -216,9 +234,11 @@ export default class View extends Base {
    * @returns {Promise<void>} A promise that resolves when the data is loaded.
    */
   #loadData () {
-    return this.#loadScript(DATA, (content) => isLikeObject(content) || isLikeArray(content) ?
-      jsStr2obj(content) :
-      csvStr2obj(content));
+    return this.#loadScript(DATA, (content, safe) => {
+      return isLikeObject(content) || isLikeArray(content) ?
+        (safe ? jsStr2obj(content) : JSON.parse(content)) :
+        csvStr2obj(content)
+    });
   }
 
   constructor () {
@@ -233,7 +253,7 @@ export default class View extends Base {
         }
       </style>
       <span></span>`;
-    ctx.content               = this.shadowRoot.querySelector('span');
+    ctx.content               = query(this.shadowRoot, 'span');
   }
 
   /**
@@ -258,7 +278,7 @@ export default class View extends Base {
       if (target === this && !mutation.attributeName) {
         return this.load();
       }
-      if (target.tagName.toLowerCase() === SVG) {
+      if ([SVG, TEMPLATE].includes(target.tagName.toLowerCase())) {
         promises.push(this.#loadSVG());
       } else if (target.tagName === 'SCRIPT') {
         const load = {
@@ -267,7 +287,7 @@ export default class View extends Base {
           config  : this.#loadConfig
         }[target.type.toLowerCase()];
         if (load) {
-          promises.push(load());
+          promises.push(load.bind(this)());
         }
       }
     }
@@ -302,7 +322,7 @@ export default class View extends Base {
     ]);
 
     this.#loaded = true;
-    this[FIRE_EVENT]('load');
+    this[FIRE_EVENT](LOAD);
 
     // Call to update
     return this.update(true);
@@ -375,15 +395,9 @@ export default class View extends Base {
 View.prototype.update = debounceMethod(View.prototype.update, 1)
 
 // Define the component
-define(View)
+const def = define(View)
   .ext(intersection)
-  .attr({name : SVG + SRC, type : STRING, value : '', posUpdate : RENDER})
   .attr({name : DATA, type : OBJECT, value : [], posUpdate : UPDATE})
-  .attr({name : DATA + SRC, type : STRING, posUpdate : RENDER})
-  .prop({name : METHODS, type : OBJECT, value : {}, posUpdate : UPDATE})
-  .attr({name : METHODS + SRC, type : STRING, posUpdate : RENDER})
-  .attr({name : CONFIG, type : OBJECT, value : {}, posUpdate : UPDATE})
-  .attr({name : CONFIG + SRC, type : STRING, posUpdate : RENDER})
   .attr({
     name : 'value',
     set (v) {
@@ -393,8 +407,20 @@ define(View)
       return this.data?.value;
     }
   })
-  .tag('grapper-view')
-  .alias('g-composer');
+  .attr({name : CONFIG, type : OBJECT, value : {}, posUpdate : UPDATE})
+  .prop({name : METHODS, type : OBJECT, value : {}, posUpdate : UPDATE});
+
+[
+  TEMPLATE + SRC_PROP,
+  DATA + SRC_PROP,
+  METHODS + SRC_PROP,
+  CONFIG + SRC_PROP
+].forEach(name => {
+  def.prop({name, type : STRING, value : '', posUpdate : LOAD})
+});
+
+def.tag('grapper-view')
+   .alias('g-composer');
 
 // Extension
 const viewPlugin = (setup) => {

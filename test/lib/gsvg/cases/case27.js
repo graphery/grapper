@@ -1,5 +1,4 @@
-// 27) set attribute value
-
+export const title       = '27) set attribute value';
 export const description = `
 set the circle radius attribute
 `;

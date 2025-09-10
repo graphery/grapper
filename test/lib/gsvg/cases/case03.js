@@ -1,5 +1,4 @@
-// 3) viewBox with parameters
-
+export const title       = '3) viewBox with parameters';
 export const description = `
 create a SVG element with a viewBox defined by parameters
 `;

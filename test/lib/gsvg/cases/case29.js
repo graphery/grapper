@@ -1,5 +1,4 @@
-// 29) get and set style property values
-
+export const title       = '29) get and set style property values';
 export const description = `
 get and set style opacity value
 `;

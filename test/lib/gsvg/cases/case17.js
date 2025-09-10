@@ -1,5 +1,4 @@
-// 17) querySelector()
-
+export const title       = '17) querySelector()';
 export const description = `
 querySelector() return a wrapped element
 `;

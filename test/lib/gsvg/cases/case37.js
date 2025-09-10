@@ -1,5 +1,4 @@
-// 37) clipPath and url()
-
+export const title       = '37) clipPath and url()';
 export const description = `
 define a rectangle with a clipPath circle
 `;

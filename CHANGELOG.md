@@ -1,5 +1,32 @@
 # Grapper Change Log
 
+## 1.1.0-beta.11 (2025-09-10)
+
+- BREAKING CHANGE: remove support to those attributes of `<grapper-view>`:
+  - `svg-src="<url>"`, use `<template" src="<url>">` instead.
+  - `data-src="<url>"`, use `<script type="data" src="<url>">` instead.
+  - `methods-src="<url>"`, use `<script type="methods" src="<url>">` instead.
+  - `config-src="<url>"`, use `<script type="config" src="<url>">` instead.
+- By default, external resources load with `src` in template, data, methods, or config can only be
+  loaded from the same origin as the page. Add support to `trust-origin` attribute for load external
+  resources from other origins:
+  - `<template" src="<external-url>" trust-origin>`.
+  - `<script type="data" src="<external-url>" trust-origin>`.
+  - `<script type="methods" src="<external-url>" trust-origin>`.
+  - `<script type="config" src="<external-url>" trust-origin>`.
+- SECURITY: Fix a potential XSS vulnerability with external data and config:
+  - `<script type="data" src="<url>">` does not accept JSON5, only CSV, or JSON.
+  - `<script type="config" src="<url>">` does not accept JSON5, only JSON.
+
+## 1.1.1-beta.11 (2025-09-02)
+
+- Corrected the version in the distribution files.
+
+## 1.1.1-beta.10 (2025-09-02)
+
+- Corrected references in the documentation.
+- Other minor fixes
+
 ## 1.1.0-beta.9 (2025-08-27)
 
 - Update the `grapper-core` version to 1.1.0-beta.9.
@@ -10,7 +37,7 @@
 ## 1.1.0-beta.8 (2025-08-26)
 
 - Update the `grapper-core` version to 1.1.0-beta.8.
-- Adds support for `intersection.enter` and `intersection.exit` events directly from the template 
+- Adds support for `intersection.enter` and `intersection.exit` events directly from the template
   when the `intersection-ration` property is set to a value other than 0 in `grapper-view`.
 
 ## 1.1.0-beta.7 (2025-08-25)
@@ -23,7 +50,7 @@
 
 ## 1.1.0-beta.5 (2025-08-25)
 
-- All directive helpers are collected in `$`, avoiding the need to know whether a given function is 
+- All directive helpers are collected in `$`, avoiding the need to know whether a given function is
   in `$` as a general helper or in `$$` as a specific directive helper.
 - `$$` is supported by compatibility with previous versions.
 
@@ -33,7 +60,7 @@
 
 ## 1.1.0-beta.3 (2025-08-22)
 
-- Fixes an error when calling `animateTo()` for `x` or `y` with `delay` on a `text` element. 
+- Fixes an error when calling `animateTo()` for `x` or `y` with `delay` on a `text` element.
 
 ## 1.1.0-beta.2 (2025-08-21)
 
@@ -72,13 +99,14 @@
 - Added `observer.dark` plugin.
 - Removed the undocumented feature that allowed `g-for="n of obj"`.
 - Added support for iterating over object members using `g-for="(value, key) in obj"`.
-- Added support for iterating a numeric range with `g-for="n in 10"`, generating `1,2,3,4,5,6,7,8,9,10`.
+- Added support for iterating a numeric range with `g-for="n in 10"`, generating
+  `1,2,3,4,5,6,7,8,9,10`.
 - Maintained support for `g-for="n of 10"`, generating `0,1,2,3,4,5,6,7,8,9`.
 - Maintained support for `g-for="n of arr"` to iterate over arrays.
 - Added support for conditional objects within an array in the `g-bind` of `class` attribute.
 - Added `$$.element` and `$$.attribute` helpers in `g-bind`.
-- Refactored `$$.currentValue()` in `g-bind` for the `style` attribute, now returns an object,
-  and for the `class` attribute, now returns an array.
+- Refactored `$$.currentValue()` in `g-bind` for the `style` attribute, now returns an object, and
+  for the `class` attribute, now returns an array.
 - Added `$$.element` as a helper in `g-content`.
 - Fixed a bug when `g-if` and `g-for` are in the same element in that order and the `g-if` condition
   changes.
@@ -100,8 +128,8 @@
 ## Graphane 1.0.0-beta.5 (2024-10-14)
 
 - BREAKING CHANGE: Until now, `<defs g-for="">` was used to create a list of items. Now the behavior
-  of `<defs g-for=“”>` is to generate a list of invisible `<defs>`, not a list of visible `<g>`.
-  To create a list of items you must use `<g g-for="">`.
+  of `<defs g-for=“”>` is to generate a list of invisible `<defs>`, not a list of visible `<g>`. To
+  create a list of items you must use `<g g-for="">`.
 - Added complete support to `g-for` and `g-bind` in the same element. In each iteration over the
   `g-for` is evaluated the `g-bind`.
 - Added support to `g-for` and `g-if` in the same element in this order. The oposite precedence
@@ -127,7 +155,7 @@
 
 - Fixed catastrophic backtracking in regex checks when wrong data is processed.
 - Added support for simple data (datum), i.e. `data`, in addition to objects and arrays, can be a
-  simple number, string or boolean value.
+  simple number, string, or boolean value.
 - Added `CONTRIBUTING.md` and `CODE_OF_CONDUCT.md`.
 
 ## Graphane 1.0.0-beta.2 (2024-09-08)
@@ -136,7 +164,8 @@
 - Added `$$.fromURL()` in `g-content` directive for load external resources.
 - Added `$$.currentContent()` in `g-content` directive for get the current content.
 - The `g-load` directive plugin has been removed, as this function is integrated in `g-content`.
-- Refactored the template engine's directive storage to ensure that there is only one handler per directive.
+- Refactored the template engine's directive storage to ensure that there is only one handler per
+  directive.
 - Improve `README.md`.
 
 ## Graphane 1.0.0-beta.1 (2024-09-05)
@@ -200,8 +229,8 @@
 - Refactor and renamed `keep-aspect` plugin to `non-scaling-size`. As a result:
   - `g-keep-aspect` custom directive is now `g-non-scaling-size`.
   - `.keepAspect()` method is now `nonScalingSize()`.
-  - `.keepAspect('stroke')` method is deprecated and must be used the standard
-    attribute `vector-effect="non-scaling-stroke"`.
+  - `.keepAspect('stroke')` method is deprecated and must be used the standard attribute
+    `vector-effect="non-scaling-stroke"`.
 - Fixed errors with `animateTo` in Firefox.
 - Fixed the `width` behaviour when not defined by SVG or component size.
 - Fixed an error with decimal values as `g-for="n of 10.1"`.

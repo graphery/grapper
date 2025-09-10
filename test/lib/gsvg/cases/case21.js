@@ -1,5 +1,4 @@
-// 21) nested querySelector()
-
+export const title       = '21) nested querySelector()';
 export const description = `
 nested querySelector() return a wrapped element
 `;

@@ -1,5 +1,4 @@
-// 18) querySelectorAll()
-
+export const title       = '18) querySelectorAll()';
 export const description = `
 querySelectorAll() return an array of wrapped elements
 `;

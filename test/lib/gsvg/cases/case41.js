@@ -1,5 +1,4 @@
-// 41) delete an attribute
-
+export const title       = '41) delete an attribute';
 export const description = `
 delete an attribute
 `;

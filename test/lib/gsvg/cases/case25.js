@@ -1,5 +1,4 @@
-// 25) closest('svg')
-
+export const title       = `25) closest('svg')`;
 export const description = `
 get the parent element
 `;

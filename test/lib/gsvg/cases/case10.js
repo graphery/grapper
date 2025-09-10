@@ -1,5 +1,4 @@
-// 10) attachTo an element into a SVG
-
+export const title       = '10) attachTo an element into a SVG';
 export const description = `
 add a line element by .attachTo method to a wrapped SVG'
 `;

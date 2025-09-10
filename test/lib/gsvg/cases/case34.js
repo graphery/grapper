@@ -1,5 +1,4 @@
-// 34) add a plugin (old method)
-
+export const title       = '34) add a plugin (old method)';
 export const description = `
 define and add a plugin
 `;

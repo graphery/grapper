@@ -1,5 +1,4 @@
-// 11) attachTo an element into a no wrapped SVG
-
+export const title       = '11) attachTo an element into a no wrapped SVG';
 export const description = `
 add a line element by .attachTo method to a no wrapped SVG'
 `;

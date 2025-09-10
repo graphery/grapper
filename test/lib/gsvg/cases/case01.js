@@ -1,5 +1,4 @@
-// 1) Create a SVG
-
+export const title       = '1) Create a SVG';
 export const description = `
 create a very simple SVG element
 `;

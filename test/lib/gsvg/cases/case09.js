@@ -1,5 +1,4 @@
-// 9) attachTo with element
-
+export const title       = '9) attachTo with element';
 export const description = `
 add a SVG element by .attachTo method with an element reference'
 `;

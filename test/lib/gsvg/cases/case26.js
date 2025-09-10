@@ -1,5 +1,4 @@
-// 26) get attribute value
-
+export const title       = '26) get attribute value';
 export const description = `
 get the circle radius attribute
 `;

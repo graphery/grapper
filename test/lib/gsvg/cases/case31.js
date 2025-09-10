@@ -1,5 +1,4 @@
-// 31) get and set content()
-
+export const title       = '31) get and set content()';
 export const description = `
 get and set text content
 `;

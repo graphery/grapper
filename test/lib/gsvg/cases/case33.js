@@ -1,5 +1,4 @@
-// 33) ref
-
+export const title       = '33) ref';
 export const description = `
 to use "use" element for clone an element
 `;

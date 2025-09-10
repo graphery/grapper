@@ -1,5 +1,4 @@
-// 40) set and get a custom Symbol
-
+export const title       = '40) set and get a custom Symbol';
 export const description = `
 add and check a custom Symbol property into a gSVGObject
 `;

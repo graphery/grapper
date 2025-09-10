@@ -1,5 +1,4 @@
-// 8) attachTo with selector
-
+export const title       = '8) attachTo with selector';
 export const description = `
 add a SVG element by .attachTo method with selector'
 `;

@@ -1,5 +1,4 @@
-// 28) get and set attribute with dashes
-
+export const title       = '28) get and set attribute with dashes';
 export const description = `
 get and set fill-opacity attribute
 `;

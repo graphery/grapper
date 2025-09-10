@@ -1,5 +1,4 @@
-// 24) parentElement()
-
+export const title       = '24) parentElement()';
 export const description = `
 get the parent element
 `;
