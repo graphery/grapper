@@ -5,23 +5,24 @@
 **SVG + directives**. It offers **flexibility in design**, enabling unique and aesthetic 
 visualizations far beyond the typical monotonous charts.
 
-## ✨ Features
+## Features
 
-- ⚡ **Microframework** — lightweight, no build step required  
-- 📊 **Data-driven** — declarative binding between data and SVG  
-- 🖼️ **Native** — built on top of `<svg>` with powerful directives (`g-for`, `g-bind`, `g-if`, `g-on`, …)  
-- 🔄 **Reactive** — smooth and efficient updates when data changes  
-- 🎨 **Configurable** — use JSON/JSON5 for palettes, margins, scales, etc.  
-- 🛠️ **Extensible** — methods for interactivity, data transformation, and plugins  
+- **Microframework** — lightweight, no build step required  
+- **Data-driven** — declarative binding between data and SVG  
+- **Native** — built on top of `<svg>` with powerful directives (`g-for`, `g-bind`, `g-if`, `g-on`, …)  
+- **Reactive** — smooth and efficient updates when data changes  
+- **Configurable** — use JSON/JSON5 for palettes, margins, scales, etc.  
+- **Extensible** — methods for interactivity, data transformation, and plugins  
 
-## 📖 Documentation & Playground
+## Documentation & Playground
 
 - Full documentation: [grapper.io](https://grapper.io/)  
 - Interactive Playground: [playground.grapper.io](https://playground.grapper.io/)  
+- Blog: [blog.grapper.io](https://blog.grapper.io/)
 - GitHub: [graphery/grapper](https://github.com/graphery/grapper)  
 - NPM: [grapper](https://www.npmjs.com/package/grapper)
 
-## 🚀 Installation
+## Installation
 
 Use via **CDN**:
 
@@ -92,10 +93,6 @@ See the [LICENSE](LICENSE.md) file for details.
 Grapper is the **next version of Graphane**.  
 The project was renamed to avoid conflicts with other products and improve discoverability.
 
-The main changes are:
-
-- `<g-composer>` → `<grapper-view>`
-- `$$.` helpers → unified under `$.` (the old namespace still works but is deprecated)
-
 Existing Graphane projects will continue to run, but **new projects should use Grapper**.  
-Migration is incremental — you can update components one by one without breaking anything.
+[Migration](https://grapper.io/guide/in-depth/migration-from-graphane.html) is straightforward and
+can be incremental.
