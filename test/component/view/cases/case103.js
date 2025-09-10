@@ -1,5 +1,5 @@
 export const title       = '103) Safe config origin';
-export const description = `Load config from different origin with safe-origin`;
+export const description = `Load config from different origin with trust-origin`;
 
 export function script () {
   const result    = document.querySelector('#result');
@@ -27,7 +27,7 @@ export default `<grapper-view style="width: 100px">
   </svg>
   <script type="config" 
           src="http://127.0.0.1:${ window.location.port }/test/component/view/assets/config.json"
-          safe-origin></script>
+          trust-origin></script>
 </grapper-view>
 <div id="result"></div>
 `;

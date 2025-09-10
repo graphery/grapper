@@ -14,24 +14,24 @@ import gSVG               from '../lib/gsvg.js';
 import render             from '../plugins/template.engine.js';
 import shapes             from '../plugins/shapes.js';
 
-const UPDATE      = 'update';
-const LOAD        = 'load';
-const TEMPLATE    = 'template';
-const SVG         = 'svg';        // Keep in lowercase for Safari
-const DATA        = 'data';
-const METHODS     = 'methods';
-const CONFIG      = 'config';
-const PLUGIN      = 'plugin';
-const SRC_PROP    = 'Src';
-const SRC_ATTR    = 'src';
-const SAFE_ORIGIN = 'safe-origin';
-const SAME_ORIGIN = 'same-origin';
-const queryScript = (kind) => `script[type=${ kind }],g-script[type=${ kind }]`;
-const query       = (t, s) => t.querySelector(s);
-const getAttr     = (el, attr) => el?.getAttribute(attr);
-const hasAttr     = (el, attr) => el?.hasAttribute(attr);
-const noneSize    = ['0px', 'auto'];
-const isNotSize   = (svg) => {
+const UPDATE       = 'update';
+const LOAD         = 'load';
+const TEMPLATE     = 'template';
+const SVG          = 'svg';        // Keep in lowercase for Safari
+const DATA         = 'data';
+const METHODS      = 'methods';
+const CONFIG       = 'config';
+const PLUGIN       = 'plugin';
+const SRC_PROP     = 'Src';
+const SRC_ATTR     = 'src';
+const TRUST_ORIGIN = 'trust-origin';
+const SAME_ORIGIN  = 'same-origin';
+const queryScript  = (kind) => `script[type=${ kind }],g-script[type=${ kind }]`;
+const query        = (t, s) => t.querySelector(s);
+const getAttr      = (el, attr) => el?.getAttribute(attr);
+const hasAttr      = (el, attr) => el?.hasAttribute(attr);
+const noneSize     = ['0px', 'auto'];
+const isNotSize    = (svg) => {
   const style = getComputedStyle(svg.el);
   return noneSize.includes(style.width) && noneSize.includes(style.height);
 };
@@ -121,12 +121,12 @@ export default class View extends Base {
   /**
    * Fetches the content from the specified URL.
    * @param {string} url - The URL to fetch data from.
-   * @param {boolean} [safe=false] - Whether to use safe mode for getting the content.
+   * @param {boolean} [trust=false] - Whether to use safe mode for getting the content.
    * @throws {Error} If the fetch request failed or the status code is not 200.
    * @returns {Promise<string>} A promise that resolves to the fetched content as text.
    */
-  async #fetch (url, safe) {
-    const res = await fetch(url, safe ? {} : {mode : SAME_ORIGIN, credentials : SAME_ORIGIN});
+  async #fetch (url, trust) {
+    const res = await fetch(url, trust ? {} : {mode : SAME_ORIGIN, credentials : SAME_ORIGIN});
     if (res.status !== 200) {
       throw new Error(`${ res.statusText } (${ res.status }): ${ res.url }`);
     }
@@ -171,7 +171,7 @@ export default class View extends Base {
     }
     if (ctx.templateSrc) {
       try {
-        ctx.content.innerHTML = await this.#fetch(ctx.templateSrc, template?.hasAttribute(SAFE_ORIGIN));
+        ctx.content.innerHTML = await this.#fetch(ctx.templateSrc, template?.hasAttribute(TRUST_ORIGIN));
       } catch (err) {
         this.#error(err.message, SVG, ctx.templateSrc, this.#errorsLoading);
       }
@@ -193,7 +193,7 @@ export default class View extends Base {
     let safe  = true;
     if (el) {
       ctx[key] = getAttr(el, SRC_ATTR);
-      safe     = hasAttr(el, SAFE_ORIGIN);
+      safe     = hasAttr(el, TRUST_ORIGIN);
     }
     let content = ctx[key] ?
       await this.#fetch(ctx[key], safe).catch(err => this.#error(err.message, kind, ctx[key], this.#errorsLoading)) :

@@ -1,5 +1,5 @@
 export const title       = '101) Safe methods origin';
-export const description = `Load methods from different origin with safe-origin`;
+export const description = `Load methods from different origin with trust-origin`;
 
 export function script () {
   const result    = document.querySelector('#result');
@@ -30,7 +30,7 @@ export default `<grapper-view>
     {cx: 50, cy: 50},
     {cx: 75, cy: 75}
   ]</script>
-  <script type="methods" src="http://127.0.0.1:${ window.location.port }/test/component/view/assets/colors.js" safe-origin></script>
+  <script type="methods" src="http://127.0.0.1:${ window.location.port }/test/component/view/assets/colors.js" trust-origin></script>
 </grapper-view>
 <div id="result"></div>
 `;
