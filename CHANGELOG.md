@@ -1,5 +1,10 @@
 # Grapper Change Log
 
+## next
+
+- Fixed an error in the `gSVG` library when `.top()` or `.parents()` is called and the SVG is
+  already inserted in the DOM.
+
 ## 1.1.0-beta.11 (2025-09-10)
 
 - BREAKING CHANGE: remove support to those attributes of `<grapper-view>`:
