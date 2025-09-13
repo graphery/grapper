@@ -90,6 +90,12 @@ if (process.argv.includes('--project=view')) {
                      '-i /src/plugins/template.engine.script.js ' +
                      '-i /src/plugins/tosource.script.js ' +
                      '-t test/plugins/tosource/cases';
+} else if (process.argv.includes('--project=template.profile')) {
+  process.env.port = '7215';
+  options          = '-i /src/lib/gsvg.script.js ' +
+                     '-i /src/plugins/template.engine.script.js ' +
+                     '-i /src/plugins/template.profile.script.js ' +
+                     '-t test/plugins/template.profile/cases';
 }
 const webServer = process.env.port ? {
   command             : `g-workbench ${ options } -p ${ process.env.port }`,
@@ -120,6 +126,7 @@ export default defineConfig({
     {name : 'plugin.intersection'},
     {name : 'object'},
     {name : 'tosource'},
+    {name : 'template.profile'},
   ],
   testDir       : './test',
   fullyParallel : true,
