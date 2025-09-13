@@ -244,6 +244,7 @@ export default class View extends Base {
   constructor () {
     super();
     const ctx                 = this [CONTEXT];
+    const loadingClass        = `_loading_`;
     this.shadowRoot.innerHTML = `
       <style>
         :host {
@@ -251,9 +252,15 @@ export default class View extends Base {
           width   : max-content;
           height  : max-content;
         }
+        .${ loadingClass } {
+          display : none;
+        }
       </style>
-      <span></span>`;
+      <span class="${ loadingClass }"></span>`;
     ctx.content               = query(this.shadowRoot, 'span');
+    this.addEventListener('render', () => {
+      ctx.content.classList.remove(loadingClass);
+    });
   }
 
   /**
@@ -388,6 +395,10 @@ export default class View extends Base {
 
   get version () {
     return '%VERSION%';
+  }
+
+  get gSVG() {
+    return gSVG;
   }
 
 }
