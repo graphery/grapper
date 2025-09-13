@@ -2,8 +2,10 @@
 
 ## next
 
+- Fixed a FOUC effect when loading a large template in the `grapper-view` component.
 - Fixed an error in the `gSVG` library when `.top()` or `.parents()` is called and the SVG is
   already inserted in the DOM.
+- Added the `template.profile` profile for performance analysis and diagnostics in `gSVG` template.
 
 ## 1.1.0-beta.11 (2025-09-10)
 
