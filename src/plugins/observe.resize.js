@@ -22,9 +22,7 @@ function observeResize (svg) {
       currentMatrix.a !== prevMatrix.a ||
       currentMatrix.b !== prevMatrix.b ||
       currentMatrix.c !== prevMatrix.c ||
-      currentMatrix.d !== prevMatrix.d ||
-      currentMatrix.e !== prevMatrix.e ||
-      currentMatrix.f !== prevMatrix.f)
+      currentMatrix.d !== prevMatrix.d)
     ) {
       svg.dispatchEvent(new CustomEvent("resize", {detail : {currentMatrix, prevMatrix}}));
       prevMatrix = currentMatrix;

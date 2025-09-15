@@ -1,5 +1,17 @@
 # Grapper Change Log
 
+## 1.1.0-rc.1 (2025-09-15)
+
+- Overall performance optimization.
+- Fixed a bug where the `resize` event was fired unnecessarily when scrolling the page.
+- Fixed a bug when the SVG has a different size than the one set in the `viewBox`. An initial
+  `resize` event was not fired.
+- Fixed a FOUC effect when loading a large template in the `grapper-view` component.
+- Fixed an error in the `gSVG` library when `.top()` or `.parents()` is called and the SVG is
+  already inserted in the DOM.
+- Added the `template.profile` profile for performance analysis and diagnostics in `gSVG` template.
+- Updated the `grapper-core` version to 1.1.0-rc.11.
+
 ## 1.1.0-beta.11 (2025-09-10)
 
 - BREAKING CHANGE: remove support to those attributes of `<grapper-view>`:

@@ -26,11 +26,17 @@ export default `
   </svg>
   <script type="plugin" src="./src/plugins/observe.resize.js"></script>
   <script type="methods">
+    const log=document.querySelector('#log');
     function add(evt) {
-      if (evt.detail.currentMatrix.a > evt.detail.prevMatrix.a) {
-        $.data.n++;
+      log.innerHTML += 'resize event: ' + evt.detail.currentMatrix.a + '<br>';
+      if(evt.detail.currentMatrix.a === evt.detail.prevMatrix.a) {
+        $.data.n = 0;
       } else {
-        $.data.n--;
+        if (evt.detail.currentMatrix.a > evt.detail.prevMatrix.a) {
+          $.data.n++;
+        } else {
+          $.data.n--;
+        }
       }
     }
   </script>
@@ -39,4 +45,5 @@ export default `
   <button id="run">up size</button>
   <button id="minus">down size</button>
 </p>
+<pre id="log"></pre>
 `;

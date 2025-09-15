@@ -14,7 +14,7 @@ export function script () {
 }
 
 export default `
-<grapper-view style="width: 300px; height: 300px">
+<grapper-view style="width: 202px; height: 202px">
   <svg viewBox="0 0 202 202" 
        width="100%" 
        height="100%">

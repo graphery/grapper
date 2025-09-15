@@ -85,7 +85,6 @@ for await (const dirent of dir) {
     if ('case008' === code) {
       test('events', async ({page}) => {
         const result = page.locator('#events');
-        await expect(result).toHaveText(/resize/)
         await expect(result).toHaveText(/render/)
       });
     }

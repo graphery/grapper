@@ -185,6 +185,9 @@ class GSVGObject {
     const result = [];
     let el       = this;
     while (el = el.parentElement()) {
+      if (!is(el,GSVGObject)) {
+        break;
+      }
       result.push(el);
     }
     return result;
@@ -195,7 +198,7 @@ class GSVGObject {
    * @returns {object}
    */
   top () {
-    return this.parents().pop() || this;
+    return this.parents()?.pop() || this;
   }
 
 }
